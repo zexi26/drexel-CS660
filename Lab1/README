@@ -1,0 +1,26 @@
+CS 660
+Saffat Hasan
+Professor Jeremy Johnson
+Lab 1
+
+Ex 1
+Refer to attached ex1.pdf which summarizes the cataloging of the
+human genome. The key aspect of the genome is that there is only
+a 1% difference among humans and so if we take a reference of a
+common DNA we can compress the data by only keeping track of the
+differences.
+
+Ex 2
+Run ex2.py and it will print the RMSE and then display the histogram
+using two hardcoded books.
+
+Ex 3
+Run ex3.py and it will print the total words, average word length,
+average word count, and average file size.
+
+This could be expanded to as many books as necessary in a sample,
+however this code runs linearly and so would need to be parallelized
+for a sample of sufficient size.
+
+Ex 4 (Optional)
+Completed as a part of ex 3.
