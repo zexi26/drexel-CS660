@@ -9,7 +9,7 @@ def getFrequencyDict(file_name):
     for c in string.ascii_lowercase:
         freq[c] = 0
 
-    for line in open(file_name):
+    for line in open(file_name, encoding="utf8"):
         for c in line.lower():
             if not c.isalpha():
                 continue
@@ -24,7 +24,7 @@ def getFrequencyDict(file_name):
 def getFrequencyWordDict(file_name):
     freq = {}
 
-    for line in open(file_name):
+    for line in open(file_name, encoding="utf8"):
         for word in line.lower().split():
             if not word:
                 continue
