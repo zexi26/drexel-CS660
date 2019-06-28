@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 import string
-
+import numpy as np
 
 def getFrequencyDict(file_name):
     """ Returns a dictionary of each letter and its frequency """
