@@ -18,4 +18,4 @@ def hist(x):
     plt.title('Frequency of letters')
     plt.grid()
     plt.show()
-    
+    fig.savefig("freq_figure.pdf", bbox_inches='tight')
