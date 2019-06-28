@@ -38,7 +38,4 @@ def getFrequencyWordDict(file_name):
 def RMSE(list1, list2):
     """ calculate root mean square error by summing the
     squares of each difference and returning the square root """
-    sum = 0
-    for i in range(len(list1)):
-        sum += (list1[i] - list2[i]) ** 2
-    return sum ** .5
+    return np.sqrt(((np.array(y1) - np.array(y2)) ** 2).mean())
