@@ -1,5 +1,7 @@
 import matplotlib.pyplot as plt
 
+def show():
+    plt.show()
 
 def hist(x):
     pos = list(range(len(x[0])))
@@ -17,5 +19,4 @@ def hist(x):
     plt.ylabel('Frequency')
     plt.title('Frequency of letters')
     plt.grid()
-    plt.show()
     fig.savefig("freq_figure.pdf", bbox_inches='tight')
