@@ -33,6 +33,5 @@ if __name__ == "__main__":
     rmse = RMSE(frequency_values_1, frequency_values_2)
     print("The RMSE between these two books is {:.10f}".format(rmse))
 
-
     values = [list(f.values()) for f in frequencies]
     plt.hist(values)
