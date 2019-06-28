@@ -7,7 +7,7 @@ def hist(x):
     fig, ax = plt.subplots(figsize=(20, 10))
     
     for i in range(len(x)):
-        plt.bar([p + i * width for p in pos], freq[i], width, alpha=0.5)
+        plt.bar([p + i * width for p in pos], x[i], width, alpha=0.5)
         
     ax.set_xticks([p + len(x) * width / 3 for p in pos])
     ax.set_xticklabels(
