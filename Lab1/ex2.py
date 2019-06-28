@@ -35,3 +35,4 @@ if __name__ == "__main__":
 
     values = [list(f.values()) for f in frequencies]
     plt.hist(values)
+    plt.show()
