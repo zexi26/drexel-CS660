@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 import string
-
+import numpy as np
 
 def getFrequencyDict(file_name):
     """ Returns a dictionary of each letter and its frequency """
@@ -38,7 +38,4 @@ def getFrequencyWordDict(file_name):
 def RMSE(list1, list2):
     """ calculate root mean square error by summing the
     squares of each difference and returning the square root """
-    sum = 0
-    for i in range(len(list1)):
-        sum += (list1[i] - list2[i]) ** 2
-    return sum ** .5
+    return np.sqrt(((np.array(list1) - np.array(list2)) ** 2).mean())
