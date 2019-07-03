@@ -34,5 +34,8 @@ if __name__ == "__main__":
     print("The RMSE between these two books is {:.10f}".format(rmse))
 
     values = [list(f.values()) for f in frequencies]
-    plt.hist(values)
-    plt.show()
+
+    for graphing_function in [plt.bar, plt.hist]:
+        graphing_function(values)
+        plt.show()
+
