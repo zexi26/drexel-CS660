@@ -5,10 +5,6 @@ import numpy as np
 
 class FrequencyAnalysis:
     """ Base class for Frequency Analysis """
-
-    def __init__(self):
-        self.frequencyDictionary = None
-
     def getFrequencyDict(self, file_name):
         self.frequencyDictionary = {}
 
@@ -53,22 +49,15 @@ class FrequencyAnalysisByLetter(FrequencyAnalysis):
                 self.frequencyDictionary.pop(key)
 
 
-def getFrequencyDict(file_name):
-    """ Returns a dictionary of each letter and its frequency """
-    freq = {}
-    count = 0
-    for c in string.ascii_lowercase:
-        freq[c] = 0
+class FrequencyAnalysisByWord(FrequencyAnalysis):
+    def parseLine(self, line):
+        """ Splits words by whitespace """
+        line.lower()
+        return line.split()
 
-    for line in open(file_name, encoding="utf8"):
-        for c in line.lower():
-            if c not in freq:
-                continue
-            freq[c] += 1
-            count += 1
-    for key in freq:
-        freq[key] /= count
-    return freq
+    def filterDictionary(self):
+        """ We do not filter any keys out of the dictionary in this class """
+        pass
 
 
 def getFrequencyWordDict(file_name):
