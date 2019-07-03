@@ -12,11 +12,9 @@ def getFrequencyDict(file_name):
 
     for line in open(file_name, encoding="utf8"):
         for c in line.lower():
-            if not c.isalpha():
-                continue
             if c not in freq:
                 continue
-            freq[c] = freq[c] + 1
+            freq[c] += 1
             count += 1
     for key in freq:
         freq[key] /= count
