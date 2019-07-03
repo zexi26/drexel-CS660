@@ -18,7 +18,8 @@ books = [
 
 
 def get_word_analysis(file_name):
-    frequencyDictionary = getFrequencyWordDict(file_name)
+    analyzer = FrequencyAnalysisByWord()
+    frequencyDictionary = analyzer.getFrequencyDict(file_name)
 
     total = 0
     count = 0

@@ -5,6 +5,7 @@ import numpy as np
 
 class FrequencyAnalysis:
     """ Base class for Frequency Analysis """
+
     def getFrequencyDict(self, file_name):
         self.frequencyDictionary = {}
 
@@ -26,7 +27,6 @@ class FrequencyAnalysis:
             freq[key] /= total_occurrences
 
         return freq
-
 
     def parseLine(self, line):
         raise NotImplemented
@@ -58,21 +58,6 @@ class FrequencyAnalysisByWord(FrequencyAnalysis):
     def filterDictionary(self):
         """ We do not filter any keys out of the dictionary in this class """
         pass
-
-
-def getFrequencyWordDict(file_name):
-    freq = {}
-
-    for line in open(file_name, encoding="utf8"):
-        for word in line.lower().split():
-            if not word:
-                continue
-            if word not in freq:
-                freq[word] = 1
-            else:
-                freq[word] += 1
-
-    return freq
 
 
 def RMSE(list1, list2):
