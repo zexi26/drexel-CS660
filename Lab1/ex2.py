@@ -9,7 +9,7 @@ Description:
 """
 
 
-from frequencyAnalysis import getFrequencyDict, RMSE
+from frequencyAnalysis import *
 import urllib_wrapper
 import matplotlib_wrapper as plt
 
@@ -20,11 +20,11 @@ books = [
 
 if __name__ == "__main__":
     frequencies = []
-
+    analyzer = FrequencyAnalysisByLetter()
     for i in range(len(books)):
         file_name = "book_{}.txt".format(i + 1)
         urllib_wrapper.downloadBook(books[i], file_name)
-        frequencyDictionary = getFrequencyDict(file_name)
+        frequencyDictionary = analyzer.getNormalizedFrequencyDict(file_name)
         frequencies.append(frequencyDictionary)
 
     frequency_values_1 = list(frequencies[0].values())
