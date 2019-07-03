@@ -25,8 +25,8 @@ BOOK_URL = "https://www.gutenberg.org/files/{0}/{0}-0.txt"
 def printRMSE(frequencies):
     if len(frequencies) <= 1:
         return
-    frequency_values_1 = list(frequencies[0].values())
-    frequency_values_2 = list(frequencies[1].values())
+    frequency_values_1 = list(x[1] for x in frequencies[0])
+    frequency_values_2 = list(x[1] for x in frequencies[1])
 
     rmse = RMSE(frequency_values_1, frequency_values_2)
     print("The RMSE between the first two books is {:.10f}".format(rmse))
@@ -45,7 +45,7 @@ if __name__ == "__main__":
 
     printRMSE(frequencies)
 
-    values = [list(f.values()) for f in frequencies]
+    values = [[x[1] for x in f] for f in frequencies]
 
     for graphing_function in [plt.bar, plt.hist]:
         graphing_function(values)
