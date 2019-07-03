@@ -1,4 +1,4 @@
-CS 660
+aCS 660
 Saffat Hasan
 Professor Jeremy Johnson
 Lab 1
@@ -11,8 +11,12 @@ common DNA we can compress the data by only keeping track of the
 differences.
 
 Ex 2
-Run ex2.py and it will print the RMSE and then display the histogram
-using two hardcoded books.
+Run ex2.py and it will print the RMSE and then display the bargraph,
+and histogram using two hardcoded books.
+
+This script also takes IDs for each book as arguments
+It will only show the RMSE for the first two books (if at least two
+are specified.)
 
 Ex 3
 Run ex3.py and it will print the total words, average word length,
