@@ -29,8 +29,8 @@ def get_word_analysis(file_name):
         count += occurrences
         total += len(key) * occurrences
 
-    print("Total words counted: {}".format(count))
-    print("Average word length: {0:.2f}".format(total / count))
+    print("\tTotal words counted: {}".format(count))
+    print("\tAverage word length: {0:.2f}".format(total / count))
     return count
 
 
@@ -47,18 +47,18 @@ if __name__ == "__main__":
         word_count = get_word_analysis(file_name)
         size = get_file_size(file_name)
 
-        print("Size of file is {} bytes.".format(size))
+        print("\tSize of file is {} bytes.\n".format(size))
 
         sizes.append(size)
         words.append(word_count)
-
+    print("Statistics over all files:")
     print(
-        "Average word count over {} books: {}.".format(
+        "\tAverage word count over {} books: {}.".format(
             len(books),
             sum(words) /
             len(books)))
     print(
-        "Average file size over {} files: {}.".format(
+        "\tAverage file size over {} files: {}.".format(
             len(books),
             sum(sizes) /
             len(books)))
