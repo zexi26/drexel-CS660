@@ -38,4 +38,3 @@ if __name__ == "__main__":
     for graphing_function in [plt.bar, plt.hist]:
         graphing_function(values)
         plt.show()
-

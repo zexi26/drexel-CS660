@@ -2,6 +2,7 @@
 import string
 import numpy as np
 
+
 def getFrequencyDict(file_name):
     """ Returns a dictionary of each letter and its frequency """
     freq = {}
@@ -21,6 +22,7 @@ def getFrequencyDict(file_name):
         freq[key] /= count
     return freq
 
+
 def getFrequencyWordDict(file_name):
     freq = {}
 
@@ -34,6 +36,7 @@ def getFrequencyWordDict(file_name):
                 freq[word] += 1
 
     return freq
+
 
 def RMSE(list1, list2):
     """ calculate root mean square error by summing the
