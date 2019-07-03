@@ -7,9 +7,10 @@ Description:
     2. Calculate the number of words in a book
         Calculate the average length of words
 """
-import urllib_wrapper
 from frequencyAnalysis import *
 import os
+import gutenberg_wrapper
+import sys
 
 books = [
     "https://www.gutenberg.org/files/59780/59780-0.txt",
@@ -40,9 +41,9 @@ def get_file_size(file_name):
 if __name__ == "__main__":
     words = []
     sizes = []
-    for i in range(len(books)):
-        file_name = "book_{}.txt".format(i + 1)
-        urllib_wrapper.downloadBook(books[i], file_name)
+    books = gutenberg_wrapper.getBooks(sys.argv[1:])
+    for file_name in books:
+        print("For file: {}".format(file_name))
         word_count = get_word_analysis(file_name)
         size = get_file_size(file_name)
 
