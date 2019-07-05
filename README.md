@@ -13,7 +13,7 @@ From the syllabus:
 
 
 ## Collaborators
-- Evan Lavendar
-- Zexi Yu
+- Evan Lavender
 - Merlin Cherian
 - Saffat Hasan
+- Zexi Yu
