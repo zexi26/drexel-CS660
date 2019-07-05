@@ -25,7 +25,7 @@ class FrequencyAnalysis:
 
         for key in freq:
             freq[key] /= total_occurrences
-            
+
         freq = sorted(freq.items(), key=lambda x: x[0])
         return freq
 
