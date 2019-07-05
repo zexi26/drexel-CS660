@@ -47,10 +47,10 @@ if __name__ == "__main__":
     primes = iter(Primes())
     print("Using an iterator...")
     print("The first prime number is: {}".format(next(primes)))
-    for i in range(10):
+    for i in range(5):
         print("The next prime number is: {}.".format(next(primes)))
 
-    upper_limit = 100
+    upper_limit = 15
     yielding_generator = gen_primes(upper_limit)
     print("Using a yielding prime number generator...")
     print("The primes smaller than {} are: {}".format(upper_limit, list(yielding_generator)))
