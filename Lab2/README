@@ -3,12 +3,22 @@ Saffat Hasan
 Lab 2
 Professor Jeremy Johnson
 
-# Part 1 
+# Overview
+The overall focus of this lab is to be able to run make from the Lab2 directory to see the entire
+lab's requirements fulfilled in a single command.
+
+The below outlines each sub-task's assignment, what target fulfills that tasks requirements and
+any documentation that maybe related.
+
+# Part 1
 ## Map/Reduce and Generators
 1. Run the examples from the lecture on Generators, Delayed Evaluation and Functional Programming
 	- Run Make (default target in either this directory or Part1 directory)
 	- Output files are called "words_output.log" and "word-count_output.log"
+    - Corresponds to Part1/Makefile target "demo"
 2. Write a prime number generator using yield
+    - Part1/primes.py has been updated to include this feature.
+    - Corresponds to Part1/Makefile target "primes"
 3. Implement map(f, L) where f is a function and L is a list by constructing a list
 4. Implement map using yield
 5. Implement map by creating an iterator object
