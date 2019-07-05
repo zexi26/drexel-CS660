@@ -3,11 +3,6 @@ run: word-count words
 OUTPUT_FILE_SUFFIX=_output.log
 NUM_PARAGRAPHS=1
 
-create-temp-file:
-	@echo "Creating temporary file with sample text"
-	$(eval tmpfile := $(shell mktemp))
-	@curl http://metaphorpsum.com/paragraphs/$(NUM_PARAGRAPHS) > $(tmpfile) 2> /dev/null
-
 word-count: create-temp-file
 	@echo "============================="
 	@echo "===== RUNNING word-count ===="
@@ -25,3 +20,8 @@ words: create-temp-file
 	@echol
 	@echo Output placed in $@$(OUTPUT_FILE_SUFFIX)
 	@echo
+
+create-temp-file:
+	@echo "Creating temporary file with sample text"
+	$(eval tmpfile := $(shell mktemp))
+	@curl http://metaphorpsum.com/paragraphs/$(NUM_PARAGRAPHS) > $(tmpfile) 2> /dev/null
