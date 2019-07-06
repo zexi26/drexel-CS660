@@ -14,6 +14,9 @@ class MRLetterFrequency(MRJob):
     def combiner(self, letter, counts):
         yield letter, sum(counts)
 
+    def reducer(self, letter, counts):
+        yield letter, sum(counts)
+
 
 if __name__ == '__main__':
     MRLetterFrequency.run()
