@@ -50,6 +50,12 @@ def list_map(f, L):
         and L is a list by constructing a list """
     return [f(x) for x in L]
 
+def yield_map(f, L):
+    """ Implement map(f, L) where f is a function
+        and L is a list by using yield """
+    for x in L:
+        yield f(x)
+
 
 def square(x):
     return x * x
@@ -74,4 +80,5 @@ if __name__ == "__main__":
 
     assert(isinstance(n_primes, list))
 
-    print("Applying n_primes to list_map and got: \t{}".format(list_map(square, n_primes)))
+    print("Applying n_primes to list_map and got: \t\t{}".format(list_map(square, n_primes)))
+    print("Applying n_primes to yield_map and got: \t{}".format(list(yield_map(square, n_primes))))
