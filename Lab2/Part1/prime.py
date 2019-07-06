@@ -95,7 +95,6 @@ class IterMap:
         self.index = 0
         self.f = f
         self.L = L
-        self.c = L[self.index]
 
     def __iter__(self):
         return self
@@ -104,8 +103,8 @@ class IterMap:
         if self.index < len(self.L):
             self.c = self.L[self.index]
             self.index += 1
-
             return self.f(self.c)
+        
         else:
             raise StopIteration
 
