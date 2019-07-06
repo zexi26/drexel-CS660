@@ -126,7 +126,7 @@ if __name__ == "__main__":
             break
 
     print("Using a yielding prime number generator...")
-    print("The primes from {} to {} are: \t\t{}".format(start, stop, n_primes))
+    print("The primes between {} and {} are: \t\t{}".format(start, stop, n_primes))
 
     print("Applying n_primes to list_map and got: \t\t{}".format(list_map(square, n_primes)))
     print("Applying n_primes to yield_map and got: \t{}".format(list(yield_map(square, n_primes))))
