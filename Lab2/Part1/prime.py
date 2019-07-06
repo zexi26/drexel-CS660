@@ -50,11 +50,35 @@ def list_map(f, L):
         and L is a list by constructing a list """
     return [f(x) for x in L]
 
+
 def yield_map(f, L):
     """ Implement map(f, L) where f is a function
         and L is a list by using yield """
     for x in L:
         yield f(x)
+
+
+class IterMap:
+    """ Implement map(f, L) where f is a function
+        and L is a list by creating an iterator object """
+
+    def __init__(self, f, L):
+        self.index = 0
+        self.f = f
+        self.L = L
+        self.c = L[self.index]
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.index < len(self.L):
+            self.c = self.L[self.index]
+            self.index += 1
+
+            return self.f(self.c)
+        else:
+            raise StopIteration
 
 
 def square(x):
@@ -78,7 +102,8 @@ if __name__ == "__main__":
         next_prime = next(primes)
         n_primes.append(next_prime)
 
-    assert(isinstance(n_primes, list))
+    assert (isinstance(n_primes, list))
 
     print("Applying n_primes to list_map and got: \t\t{}".format(list_map(square, n_primes)))
     print("Applying n_primes to yield_map and got: \t{}".format(list(yield_map(square, n_primes))))
+    print("Applying n_primes to IterMap and got: \t\t{}".format(list(IterMap(square, n_primes))))
