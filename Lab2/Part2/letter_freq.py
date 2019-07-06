@@ -11,7 +11,7 @@ class MRLetterFrequency(MRJob):
         for letter in WORD_RE.findall(line):
             yield letter.lower(), 1
 
-    def reducer(self, letter, counts):
+    def combiner(self, letter, counts):
         yield letter, sum(counts)
 
 
