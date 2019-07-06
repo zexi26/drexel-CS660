@@ -1,31 +1,54 @@
-def gen_primes(limit):
-    for number in range(limit):
-        if is_prime(number):
-            yield number
+# def gen_primes(limit):
+#     for number in range(limit):
+#         if is_prime(number):
+#             yield number
+
+
+# class Primes:
+#     def __init__(self):
+#         self.start = 2
+
+#     def __iter__(self):
+#         self.current = self.start
+#         return self
+
+#     def __next__(self):
+#         last_head = self.current
+#         self.current = get_next_prime(last_head)
+#         return last_head
+
+
+# def get_next_prime(last_prime):
+#     """ :return the smallest prime number greater than the parameter """
+#     next_prime = last_prime + 1
+#     while not is_prime(next_prime):
+#         next_prime += 1
+#     return next_prime
 
 
 class Primes:
     def __init__(self):
-        self.start = 2
+        self.prime_list = [2]
+        self.v = 3
 
-    def __iter__(self):
-        self.current = self.start
-        return self
+    def gen_primes(self):
+        yield 2
+        while True:
+            # check the numbers in prime list only
+            for i in self.prime_list:
+                if self.v % i == 0:
+                    break
+                elif i * i > self.v + 1:
+                    yield self.v
+                    self.prime_list.append(self.v)
+                    break
+            else:
+                self.prime_list.append(self.v)
+                yield self.v
+            # check odd numbers only
+            self.v += 2
 
-    def __next__(self):
-        last_head = self.current
-        self.current = get_next_prime(last_head)
-        return last_head
-
-
-def get_next_prime(last_prime):
-    """ :return the smallest prime number greater than the parameter """
-    next_prime = last_prime + 1
-    while not is_prime(next_prime):
-        next_prime += 1
-    return next_prime
-
-
+      
 def is_prime(n):
     if (n < 2):
         return False
@@ -37,6 +60,12 @@ def is_prime(n):
     return True
 
 
+def primes(a, b):
+  for p in range(a, b + 1):
+    if is_prime(p):
+      yield p
+
+    
 def sum_primes(a, b):
     accum = 0
     for x in range(a, b + 1):
@@ -80,29 +109,25 @@ class IterMap:
         else:
             raise StopIteration
 
-
 def square(x):
     return x * x
 
 
 if __name__ == "__main__":
-    primes = iter(Primes())
-    print("Using an iterator...")
-    for i in range(5):
-        print("The next prime number is: {}.".format(next(primes)))
 
-    upper_limit = 13
-    yielding_generator = gen_primes(upper_limit)
-    print("Using a yielding prime number generator...")
-    print("The primes smaller than {} are: \t\t{}".format(upper_limit, list(yielding_generator)))
+    primes = Primes().gen_primes()
 
-    primes = iter(Primes())
+    start, stop = 10, 2000
     n_primes = []
-    for _ in range(5):
-        next_prime = next(primes)
-        n_primes.append(next_prime)
 
-    assert (isinstance(n_primes, list))
+    for n in primes:
+        if n > start and n < stop:
+            n_primes.append(n)
+        elif n > stop:
+            break
+
+    print("Using a yielding prime number generator...")
+    print("The primes from {} to {} are: \t\t{}".format(start, stop, n_primes))
 
     print("Applying n_primes to list_map and got: \t\t{}".format(list_map(square, n_primes)))
     print("Applying n_primes to yield_map and got: \t{}".format(list(yield_map(square, n_primes))))
