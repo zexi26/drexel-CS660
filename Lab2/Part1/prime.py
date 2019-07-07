@@ -1,31 +1,3 @@
-# def gen_primes(limit):
-#     for number in range(limit):
-#         if is_prime(number):
-#             yield number
-
-
-# class Primes:
-#     def __init__(self):
-#         self.start = 2
-
-#     def __iter__(self):
-#         self.current = self.start
-#         return self
-
-#     def __next__(self):
-#         last_head = self.current
-#         self.current = get_next_prime(last_head)
-#         return last_head
-
-
-# def get_next_prime(last_prime):
-#     """ :return the smallest prime number greater than the parameter """
-#     next_prime = last_prime + 1
-#     while not is_prime(next_prime):
-#         next_prime += 1
-#     return next_prime
-
-
 class Primes:
     def __init__(self):
         self.prime_list = [2]
