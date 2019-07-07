@@ -20,7 +20,7 @@ class Primes:
             # check odd numbers only
             self.v += 2
 
-      
+
 def is_prime(n):
     if (n < 2):
         return False
@@ -33,11 +33,11 @@ def is_prime(n):
 
 
 def primes(a, b):
-  for p in range(a, b + 1):
-    if is_prime(p):
-      yield p
+    for p in range(a, b + 1):
+        if is_prime(p):
+            yield p
 
-    
+
 def sum_primes(a, b):
     accum = 0
     for x in range(a, b + 1):
@@ -76,9 +76,10 @@ class IterMap:
             self.c = self.L[self.index]
             self.index += 1
             return self.f(self.c)
-        
+
         else:
             raise StopIteration
+
 
 def square(x):
     return x * x
