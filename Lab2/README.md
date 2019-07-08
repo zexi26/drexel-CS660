@@ -1,4 +1,4 @@
-#CS 660 Lab 2
+# CS 660 Lab 2
 ## Collaborators
 - Evan Lavender
 - Merlin Cherian
