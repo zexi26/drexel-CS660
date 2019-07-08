@@ -1,20 +1,15 @@
-CS 660
-Evan Lavender
-Merlin Cherian
-Saffat Hasan
-Zexi Yu
-Lab 2
-Professor Jeremy Johnson
+#CS 660 Lab 2
+## Collaborators
+- Evan Lavender
+- Merlin Cherian
+- Saffat Hasan
+- Zexi Yu
 
 # Overview
-The overall focus of this lab is to be able to run make from the Lab2 directory to see the entire
-lab's requirements fulfilled in a single command.
-
-The below outlines each sub-task's assignment, what target fulfills that tasks requirements and
-any documentation that maybe related.
+To run this lab simply execute `make` at the top level directory.
 
 # Part 1
-## Map/Reduce and Generators
+Map/Reduce and Generators
 1. Run the examples from the lecture on Generators, Delayed Evaluation and Functional Programming
 	- Run Make (default target in either this directory or Part1 directory)
 	- Output files are called "words_output.log" and "word-count_output.log"
@@ -27,7 +22,7 @@ any documentation that maybe related.
 5. Implement map by creating an iterator object
 
 # Part 2
-## MRJob
+MRJob
 1. Run the examples from the lecture on Introduction to Map/Reduce with MRJob
 2. Use MRJob to count letter frequencies
     - refer to Part2/letter_freq.py
@@ -37,7 +32,8 @@ any documentation that maybe related.
     - Makefile target Part2/k_words accomplishes this by piping through sort -rn -k2
 
 ### PART 1 Sample Output:
-```$ pwd && make
+```
+$ pwd && make
 /c/Users/Temp name/Desktop/drexel-CS660/Lab2/Part1
 Creating temporary file with sample text
 =============================
@@ -142,7 +138,8 @@ Applying n_primes to IterMap and got:           [121, 169, 289, 361, 529, 841, 9
 
 ### PART 2 Sample Output:
 
-```Elpis@Elpis-PC MINGW64 ~/Desktop/drexel-CS660/Lab2/Part2 (master)
+```
+Elpis@Elpis-PC MINGW64 ~/Desktop/drexel-CS660/Lab2/Part2 (master)
 $ pwd && make
 /c/Users/Temp name/Desktop/drexel-CS660/Lab2/Part2
 =============================
