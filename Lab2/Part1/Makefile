@@ -7,7 +7,7 @@ word-count: create-temp-file
 	@echo "============================="
 	@echo "===== RUNNING word-count ===="
 	@echo "============================="
-	@python3 wc.py    < $(tmpfile) 2> /dev/null | tee $@$(OUTPUT_FILE_SUFFIX)
+	@python wc.py    < $(tmpfile) 2> /dev/null | tee $@$(OUTPUT_FILE_SUFFIX)
 	@echo
 	@echo Output placed in $@$(OUTPUT_FILE_SUFFIX)
 	@echo
@@ -16,7 +16,7 @@ words: create-temp-file
 	@echo "============================="
 	@echo "===== RUNNING words ========="
 	@echo "============================="
-	@python3 words.py < $(tmpfile) 2> /dev/null | tee $@$(OUTPUT_FILE_SUFFIX)
+	@python words.py < $(tmpfile) 2> /dev/null | tee $@$(OUTPUT_FILE_SUFFIX)
 	@echo
 	@echo Output placed in $@$(OUTPUT_FILE_SUFFIX)
 	@echo
@@ -27,4 +27,4 @@ create-temp-file:
 	@curl http://metaphorpsum.com/paragraphs/$(NUM_PARAGRAPHS) > $(tmpfile) 2> /dev/null
 
 primes:
-	@python3 prime.py
+	@python prime.py
