@@ -37,7 +37,7 @@ any documentation that maybe related.
     - Makefile target Part2/k_words accomplishes this by piping through sort -rn -k2
 
 ### PART 1 Sample Output:
-$ pwd && make
+```$ pwd && make
 /c/Users/Temp name/Desktop/drexel-CS660/Lab2/Part1
 Creating temporary file with sample text
 =============================
@@ -137,12 +137,12 @@ Applying n_primes to IterMap and got:           [121, 169, 289, 361, 529, 841, 9
 211169, 2217121, 2229049, 2247001, 2283121, 2319529, 2343961, 2380849, 2399401, 2411809, 2430481, 2455489, 2468041, 2493241, 2505889, 2550409, 2563201, 2582449, 2588881, 2601769, 2621161, 2627641, 2647129, 2679769, 2745649, 2765569, 2778889, 2785561, 2866249, 2879809,
  2886601, 2920681, 2961841, 2968729, 3003289, 3031081, 3052009, 3073009, 3094081, 3157729, 3179089, 3193369, 3200521, 3243601, 3279721, 3323329, 3352561, 3411409, 3463321, 3485689, 3500641, 3508129, 3523129, 3530641, 3568321, 3613801, 3636649, 3659569, 3728761, 373648
 9, 3798601, 3806401, 3892729, 3916441, 3948169, 3972049, 3988009, 3996001]
-
+```
 
 
 ### PART 2 Sample Output:
 
-Elpis@Elpis-PC MINGW64 ~/Desktop/drexel-CS660/Lab2/Part2 (master)
+```Elpis@Elpis-PC MINGW64 ~/Desktop/drexel-CS660/Lab2/Part2 (master)
 $ pwd && make
 /c/Users/Temp name/Desktop/drexel-CS660/Lab2/Part2
 =============================
@@ -180,3 +180,4 @@ sort -rn -k2 k_words_output.log | head -n 10
 "is"    1353
 "that"  1334
 =============================
+```
