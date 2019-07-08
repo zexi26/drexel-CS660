@@ -19,8 +19,9 @@ class MRTopKWords(MRJob):
         yield None, (sum(counts), word)
 
     def reducer_top_k_words(self, _, word_count_pairs):
+        
         lst = sorted(list(word_count_pairs))
-
+        
         for _ in range(10):
             yield lst.pop()
 
