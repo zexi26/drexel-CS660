@@ -12,7 +12,6 @@ class MRWordCountSort(MRJob):
             yield (word.lower(), 1)
 
     def combiner_count_words(self, word, counts):
-        # sum the words we've seen so far
         yield (word, sum(counts))
 
     def reducer_count_words(self, word, counts):
