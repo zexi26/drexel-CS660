@@ -22,3 +22,13 @@ any documentation that maybe related.
 3. Implement map(f, L) where f is a function and L is a list by constructing a list
 4. Implement map using yield
 5. Implement map by creating an iterator object
+
+# Part 2
+## MRJob
+1. Run the examples from the lecture on Introduction to Map/Reduce with MRJob
+2. Use MRJob to count letter frequencies
+    - refer to Part2/letter_freq.py
+3. Use MRJob to sort words by frequency
+    - refer to Part2/word_freq.py
+4. [extra] Use MRJob to find the k most frequently occurring words
+    - Makefile target Part2/k_words accomplishes this by piping through sort -rn -k2
