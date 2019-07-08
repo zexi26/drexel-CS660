@@ -18,7 +18,7 @@ class MRWordCountSort(MRJob):
         yield None, (sum(counts), word)
 
     def reducer_sort_word_count(self, _, word_count_pairs):
-        for v in sorted(list(word_count_pairs)):
+        for v in reversed(sorted(list(word_count_pairs))):
             yield v
 
     def steps(self):

@@ -6,7 +6,7 @@ INPUT_FILE=input/walden.txt
 
 all: letters words k_words
 
-letters:
+letter_freq:
 	@echo "============================="
 	@echo Running letter_freq.py on $(INPUT_FILE)
 	@echo Job output placed in $@$(JOB_OUTPUT_FILE)
@@ -15,22 +15,20 @@ letters:
 	@echo "============================="
 	@echo
 
-words:
+word_count_sort:
 	@echo "============================="
-	@echo Running letter_freq.py on $(INPUT_FILE)
+	@echo Running word_count_sort.py on $(INPUT_FILE)
 	@echo Job output placed in $@$(JOB_OUTPUT_FILE)
 	@echo "============================="
-	python word_freq.py $(INPUT_FILE) > $@$(JOB_OUTPUT_FILE)
+	python word_count_sort.py $(INPUT_FILE) > $@$(JOB_OUTPUT_FILE)
 	@echo "============================="
 	@echo
 
 k_words:
 	@echo "============================="
-	@echo Running letter_freq.py on $(INPUT_FILE)
+	@echo Running k_words.py with k=15 on $(INPUT_FILE)
 	@echo Job output placed in $@$(JOB_OUTPUT_FILE)
 	@echo "============================="
-	python word_freq.py $(INPUT_FILE) > $@$(JOB_OUTPUT_FILE)
-	@echo Showing the $(K_MOST_FREQ_WORDS) most common words in $@$(JOB_OUTPUT_FILE)
-	sort -rn -k2 $@$(JOB_OUTPUT_FILE) | head -n $(K_MOST_FREQ_WORDS)
+	python k_words.py $(INPUT_FILE) --k=15 > $@$(JOB_OUTPUT_FILE)
 	@echo "============================="
 	@echo
