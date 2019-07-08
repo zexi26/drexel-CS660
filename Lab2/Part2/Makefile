@@ -4,7 +4,7 @@ INPUT_FILE=input/walden.txt
 
 .PHONY: all letters words k_words
 
-all: letters words k_words
+all: letter_freq word_count_sort k_words
 
 letter_freq:
 	@echo "============================="
