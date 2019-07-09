@@ -29,7 +29,8 @@ MRJob
 3. Use MRJob to sort words by frequency
     - refer to Part2/word_freq.py
 4. [extra] Use MRJob to find the k most frequently occurring words
-    - Makefile target Part2/k_words accomplishes this by piping through sort -rn -k2
+    - refer to Part2/k_words.py
+    - Usage example: python3 k_words.py input.txt --k=5
 
 ### PART 1 Sample Output:
 ```
@@ -110,38 +111,26 @@ Elpis@Elpis-PC MINGW64 ~/Desktop/drexel-CS660/Lab2/Part2 (master)
 $ pwd && make
 /c/Users/Temp name/Desktop/drexel-CS660/Lab2/Part2
 =============================
-Running letter_freq.py on input/walden.txt
-Job output placed in letters_output.log
+Running letter_freq.py on input/sampleBook.txt
+Job output placed in letters_freq_output.log
 =============================
-python letter_freq.py input/walden.txt > letters_output.log
+python letter_freq.py input/walden.txt > letter_freq_output.log
 [...]
 =============================
 
 =============================
-Running letter_freq.py on input/walden.txt
-Job output placed in words_output.log
+Running word_count_sort.py on input/sampleBook.txt
+Job output placed in word_count_sort_output.log
 =============================
-python word_freq.py input/walden.txt > words_output.log
+python word_count_sort.py input/sampleBook.txt > word_count_sort_output.log
 [...]
 =============================
 
 =============================
-Running letter_freq.py on input/walden.txt
+Running k_words.py with k=15 on input/sampleBook.txt
 Job output placed in k_words_output.log
 =============================
-python word_freq.py input/walden.txt > k_words_output.log
+python k_words.py input/sampleBook.txt --k=15 > k_words_output.log
 [...]
-Showing the 10 most common words in k_words_output.log
-sort -rn -k2 k_words_output.log | head -n 10
-"the"   7515
-"and"   4637
-"of"    3614
-"to"    3174
-"a"     3072
-"in"    2118
-"i"     1991
-"it"    1715
-"is"    1353
-"that"  1334
 =============================
 ```
