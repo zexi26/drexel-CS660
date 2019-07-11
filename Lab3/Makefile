@@ -9,7 +9,7 @@ run: download copy time_normal time_copy
 download:
 	wget $(DOWNLOAD_LINK) -O $(INPUT_FILE)
 
-copy:
+copy: clean
 	for i in {1..$(NUM_COPIES)}; do cat $(INPUT_FILE) >> $(N_COPIES_FILE); done
 
 time_normal:
@@ -17,3 +17,6 @@ time_normal:
 
 time_copy:
 	time python3 $(SCRIPT) $(N_COPIES_FILE)
+
+clean:
+	rm $(N_COPIES_FILE)
