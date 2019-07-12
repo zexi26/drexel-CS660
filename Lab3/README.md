@@ -25,16 +25,17 @@ Summary for GFS Paper
     4. Create a VM (default machine with Debian GNU/Linux) – allow http. ssh into the machine and verify python3 works
     
     5. Install pip and mrjob
-    ```python
-    sudo apt-get install python-pip3
-    pip3 install mrjob
-    ```
+        ```python
+        sudo apt-get install python-pip3
+        pip3 install mrjob
+        ```
     6. upload mrjob program and input and verify that it works. Time the execution and compare to equivalent python program
-    ```bash
-    time python3 letter_freq.py sampleBook.txt
-    ```
-     - Output files are called letter_freq_local.log and letter_freq_vm.log
-    - Running time comparison:
+        ```bash
+        time python3 letter_freq.py sampleBook.txt
+        ```
+	
+      - Output files are called letter_freq_local.log and letter_freq_vm.log
+      - Running time comparison:
           vm: real 27.973s	user 27.696s	sys 0.240s
           local: real 30.898s   user 30.149s    sys 0.451s
         
@@ -46,9 +47,10 @@ Summary for GFS Paper
 	- refer to main.py 
 	- Output file is called output.log
 	- usage example:
-    ```bash
-    make COPIES=20 run
-    ```
+        ```bash
+        make COPIES=20 run
+        ```
+	
 # Part 3
 5. Create a Hadoop cluster using dataproc – see instructions in MRJob documentation
     1. Create python script to create a large input for (4.6) by appending a bunch of copies of the input you used in (4.6). Time MRJob on the larger input.
