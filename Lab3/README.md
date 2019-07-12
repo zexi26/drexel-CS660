@@ -44,7 +44,9 @@ Summary for GFS Paper
     7. Create storage bucket in Google storage and upload input file from (6), note time compared to uploading in 6.
     
     8. Use gsutil from VM to copy file from Google storage
-    
+        ```python
+        gsutil cp gs://cs660-zexi/sampleBook.txt .
+        ```
     9. Create python script to create a large input for (6) by appending a bunch of copies of the input you used in (6). Time MRJob on the larger input.
 	- refer to main.py 
 	- Output file is called output.log
