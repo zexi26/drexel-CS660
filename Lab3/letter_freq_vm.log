@@ -1,0 +1,40 @@
+Script started on Fri 12 Jul 2019 10:11:18 AM UTC
+]0;yuzexi26@cs660: ~/drexel-CS660/lab3[01;32myuzexi26@cs660[00m:[01;34m~/drexel-CS660/lab3[00m$ make BUCKET="cs660-zexi" COPIES=50 run/[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccd lab3[Kdrexel-CS660make BUCKET="cs660/zexi" COPIES=50 run[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ccd lab3[Kmake BUCKET="cs660/zexi" COPIES=50 run[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[23Pcd drexel-CS660[8Plab3make BUCKET="cs660/zexi" COPIES=50 run-[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ktime python3 wor[K[K[Kletter_freq.py smap[K[K[KampleBook.txt
+No configs found; falling back on auto-configuration
+No configs specified for inline runner
+Creating temp directory /tmp/letter_freq.yuzexi26.20190712.101142.884255
+Running step 1 of 2...
+Running step 2 of 2...
+job output is in /tmp/letter_freq.yuzexi26.20190712.101142.884255/output
+Streaming final output from /tmp/letter_freq.yuzexi26.20190712.101142.884255/output...
+[313572, "e"]	0.12435787968331913
+[226414, "t"]	0.08979234424827158
+[202719, "a"]	0.08039526810915124
+[190083, "o"]	0.07538402294798116
+[184185, "n"]	0.07304496597104376
+[172257, "i"]	0.06831450282745112
+[167415, "h"]	0.06639423936825632
+[162897, "s"]	0.06460246937473255
+[148431, "r"]	0.05886547408338354
+[118297, "d"]	0.04691478860643681
+[96530, "l"]	0.03828232790501319
+[64400, "u"]	0.02554005922596964
+[61648, "m"]	0.024448657937307085
+[61621, "c"]	0.024437950148501166
+[59209, "w"]	0.023481387681839074
+[54901, "f"]	0.021772900490139118
+[51327, "g"]	0.02035550652005192
+[46236, "y"]	0.018336493452980315
+[45533, "p"]	0.018057694359255833
+[34657, "b"]	0.013744438394323445
+[27087, "v"]	0.010742291680960242
+[20432, "k"]	0.008103020032686517
+[4384, "x"]	0.0017386276342647655
+[2575, "j"]	0.001021205784268196
+[2388, "z"]	0.0009470444321679426
+[2331, "q"]	0.0009244391002443358
+Removing temp directory /tmp/letter_freq.yuzexi26.20190712.101142.884255...
+
+real	0m27.973s
+user	0m27.696s
+sys	0m0.240s
