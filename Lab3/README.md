@@ -21,6 +21,7 @@ Summary for GFS Paper
 
 # Part 2
 4. Get Google Cloud coupon, logon and explore:
+    
     4. Create a VM (default machine with Debian GNU/Linux) – allow http. ssh into the machine and verify python3 works
     5. Install pip and mrjob
     ```python
