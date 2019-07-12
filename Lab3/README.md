@@ -23,6 +23,7 @@ Summary for GFS Paper
 4. Get Google Cloud coupon, logon and explore:
     
     4. Create a VM (default machine with Debian GNU/Linux) – allow http. ssh into the machine and verify python3 works
+    
     5. Install pip and mrjob
     ```python
     sudo apt-get install python-pip3
@@ -38,7 +39,9 @@ Summary for GFS Paper
           local: real 30.898s   user 30.149s    sys 0.451s
         
     7. Create storage bucket in Google storage and upload input file from (6), note time compared to uploading in 6.
+    
     8. Use gsutil from VM to copy file from Google storage
+    
     9. Create python script to create a large input for (6) by appending a bunch of copies of the input you used in (6). Time MRJob on the larger input.
 	- refer to main.py 
 	- Output file is called output.log
