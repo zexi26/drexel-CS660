@@ -31,10 +31,10 @@ Summary for GFS Paper
     ```bash
     time python3 letter_freq.py sampleBook.txt
     ```
-        - Output files are called letter_freq_local.log and letter_freq_vm.log
-        - Running time comparison:
-          google vm: real 27.973s	user 27.696s	sys 0.240s
-          local machine: real 30.898s user 30.149s sys 0.451s
+     - Output files are called letter_freq_local.log and letter_freq_vm.log
+    - Running time comparison:
+          vm: real 27.973s	user 27.696s	sys 0.240s
+          local: real 30.898s   user 30.149s    sys 0.451s
         
     7. Create storage bucket in Google storage and upload input file from (6), note time compared to uploading in 6.
     8. Use gsutil from VM to copy file from Google storage
