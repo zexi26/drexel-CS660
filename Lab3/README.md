@@ -48,9 +48,9 @@ Summary for GFS Paper
         gsutil cp gs://my-bucket/sampleBook.txt .
         ```
     9. Create python script to create a large input for (6) by appending a bunch of copies of the input you used in (6). Time MRJob on the larger input.
-	- refer to main.py 
+	- Refer to main.py 
 	- Output file is called output.log
-	- usage example:
+	- Usage example:
         ```bash
         make COPIES=20 run
         ```
