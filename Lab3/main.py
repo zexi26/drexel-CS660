@@ -1,16 +1,15 @@
-import requests
 import sys
 
-num_copies = sys.argv[1]
+import requests
 
 
-def downloadFile(file_name):
+def download_file(file_name):
     response = requests.get("http://www.gutenberg.org/files/2600/2600-0.txt")
     with open(file_name, 'wb') as f:
         f.write(response.content)
 
 
-def duplicateFile(source, num_copies):
+def duplicate_file(source, num_copies):
     destination_file_name = "{}_{}".format(num_copies, source)
     with open(destination_file_name, 'wb') as destination:
         for i in range(num_copies):
@@ -20,6 +19,6 @@ def duplicateFile(source, num_copies):
 
 
 if __name__ == "__main__":
-    num_copies = sys.argv[1]
-    downloadFile("sampleBook.txt")
-    duplicateFile("sampleBook.txt", num_copies)
+    num_copies = int(sys.argv[1])
+    download_file("sampleBook.txt")
+    duplicate_file("sampleBook.txt", num_copies)
