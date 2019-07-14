@@ -1,0 +1,137 @@
+python3 ../Lab2/Part2/letter_freq.py -r dataproc 25_sampleBook.txt --instance-type n1-highcpu-4 --num-core-instances 5
+Total elapsed time: 2min 35sec + 1min 7sec = 3min 42sec
+
+Part1
+19/07/14 21:20:20 INFO mapreduce.Job: Job job_1563138959720_0001 completed successfully
+19/07/14 21:20:20 INFO mapreduce.Job: Counters: 55
+	File System Counters
+		FILE: Number of bytes read=15645
+		FILE: Number of bytes written=9216460
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		GS: Number of bytes read=84189329
+		GS: Number of bytes written=0
+		GS: Number of read operations=0
+		GS: Number of large read operations=0
+		GS: Number of write operations=0
+		HDFS: Number of bytes read=8300
+		HDFS: Number of bytes written=510
+		HDFS: Number of read operations=200
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=60
+	Job Counters
+		Killed reduce tasks=1
+		Launched map tasks=50
+		Launched reduce tasks=20
+		Rack-local map tasks=50
+		Total time spent by all maps in occupied slots (ms)=3718542
+		Total time spent by all reduces in occupied slots (ms)=1638320
+		Total time spent by all map tasks (ms)=1859271
+		Total time spent by all reduce tasks (ms)=327664
+		Total vcore-milliseconds taken by all map tasks=1859271
+		Total vcore-milliseconds taken by all reduce tasks=655328
+		Total megabyte-milliseconds taken by all map tasks=951946752
+		Total megabyte-milliseconds taken by all reduce tasks=419409920
+	Map-Reduce Framework
+		Map input records=1651375
+		Map output records=63038225
+		Map output bytes=378229350
+		Map output materialized bytes=21525
+		Input split bytes=8300
+		Combine input records=63038225
+		Combine output records=1300
+		Reduce input groups=26
+		Reduce shuffle bytes=21525
+		Reduce input records=1300
+		Reduce output records=26
+		Spilled Records=2600
+		Shuffled Maps =1000
+		Failed Shuffles=0
+		Merged Map outputs=1000
+		GC time elapsed (ms)=10734
+		CPU time spent (ms)=937940
+		Physical memory (bytes) snapshot=20707684352
+		Virtual memory (bytes) snapshot=164674621440
+		Total committed heap usage (bytes)=16362504192
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Input Format Counters
+		Bytes Read=84189329
+	File Output Format Counters
+		Bytes Written=510
+19/07/14 21:20:20 INFO streaming.StreamJob: Output directory: hdfs:///tmp/mrjob/letter_freq.evanlavender13.20190714.211341.334779/step-output/0000
+
+Part2
+19/07/14 21:21:37 INFO mapreduce.Job: Job job_1563138959720_0002 completed successfully
+19/07/14 21:21:37 INFO mapreduce.Job: Counters: 57
+	File System Counters
+		FILE: Number of bytes read=682
+		FILE: Number of bytes written=9417004
+		FILE: Number of read operations=0
+		FILE: Number of large read operations=0
+		FILE: Number of write operations=0
+		GS: Number of bytes read=0
+		GS: Number of bytes written=916
+		GS: Number of read operations=0
+		GS: Number of large read operations=0
+		GS: Number of write operations=0
+		HDFS: Number of bytes read=10402
+		HDFS: Number of bytes written=0
+		HDFS: Number of read operations=104
+		HDFS: Number of large read operations=0
+		HDFS: Number of write operations=0
+	Job Counters
+		Killed map tasks=1
+		Killed reduce tasks=1
+		Launched map tasks=52
+		Launched reduce tasks=20
+		Data-local map tasks=50
+		Rack-local map tasks=2
+		Total time spent by all maps in occupied slots (ms)=977736
+		Total time spent by all reduces in occupied slots (ms)=811800
+		Total time spent by all map tasks (ms)=488868
+		Total time spent by all reduce tasks (ms)=162360
+		Total vcore-milliseconds taken by all map tasks=488868
+		Total vcore-milliseconds taken by all reduce tasks=324720
+		Total megabyte-milliseconds taken by all map tasks=250300416
+		Total megabyte-milliseconds taken by all reduce tasks=207820800
+	Map-Reduce Framework
+		Map input records=26
+		Map output records=26
+		Map output bytes=510
+		Map output materialized bytes=6802
+		Input split bytes=9412
+		Combine input records=0
+		Combine output records=0
+		Reduce input groups=1
+		Reduce shuffle bytes=6802
+		Reduce input records=26
+		Reduce output records=26
+		Spilled Records=52
+		Shuffled Maps =1040
+		Failed Shuffles=0
+		Merged Map outputs=1040
+		GC time elapsed (ms)=10911
+		CPU time spent (ms)=124500
+		Physical memory (bytes) snapshot=23518208000
+		Virtual memory (bytes) snapshot=170159726592
+		Total committed heap usage (bytes)=16785080320
+	Shuffle Errors
+		BAD_ID=0
+		CONNECTION=0
+		IO_ERROR=0
+		WRONG_LENGTH=0
+		WRONG_MAP=0
+		WRONG_REDUCE=0
+	File Input Format Counters
+		Bytes Read=990
+	File Output Format Counters
+		Bytes Written=916
+19/07/14 21:21:37 INFO streaming.StreamJob: Output directory: gs://mrjob-us-west1-c6388d8b8cd08d79/tmp/letter_freq.evanlavender13.20190714.211341.334779/output/
+
