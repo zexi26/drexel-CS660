@@ -59,25 +59,25 @@ Summary for GFS Paper
 5. Create a Hadoop cluster using dataproc – see instructions in MRJob documentation
 
     1. Create python script to create a large input for (4.6) by appending a bunch of copies of the input you used in (4.6). Time MRJob on the larger input.
-        ```python
+        ```
         python3 ../Lab2/Part2/letter_freq.py -r dataproc 25_sampleBook.txt
         ```
 	- Output: logs/default_25copies.log
 	- Runtime: 18:50
     2. Explore different parameter settings and see how they affect the runtime
-        ```python
+        ```
         python3 ../Lab2/Part2/letter_freq.py -r dataproc 25_sampleBook.txt --instance-type n1-standard-2 --num-core-instances 7
         ```
 	- Output: logs/2cpu7inst_25copies.log
 	- Runtime: 07:56
 	
-        ```python
+        ```
         python3 ../Lab2/Part2/letter_freq.py -r dataproc 25_sampleBook.txt --instance-type n1-highcpu-4 --num-core-instances 5
         ```
 	- Output: logs/4cpu5inst_25copies.log
 	- Runtime: 03:42
 	
-        ```python
+        ```
         python3 ../Lab2/Part2/letter_freq.py -r dataproc 25_sampleBook.txt --instance-type n1-highcpu-8 --num-core-instances 2
         ```
 	- Output: logs/8cpu2inst_25copies.log
