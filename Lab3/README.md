@@ -46,7 +46,7 @@ Summary for GFS Paper
       - Run time comparison:
       
       		vm : real 6.425s	  user 0.600s	sys 0.351s
-      		cloud: real  6.354s      user 0.741s      sys 0.471s
+      		cloud: real  6.354s       user 0.741s   sys 0.471s
       
     8. Use gsutil from VM to copy file from Google storage
         ```python
