@@ -1,5 +1,6 @@
 Script started on Fri Jul 12 06:07:43 2019
-[?1034hbash-3.2$ script letter_freq_local.log[C[C[C[C[C[C[C[C[C[Ctime python3 letter_freq.py sampleBook.txt
+[?1034hbash-3.2$ script letter_freq_local.log
+[C[C[C[C[C[C[C[C[C[Ctime python3 letter_freq.py sampleBook.txt
 No configs found; falling back on auto-configuration
 No configs specified for inline runner
 Creating temp directory /var/folders/cr/0rwkf33j6999kylxpvy7mwkr0000gn/T/letter_freq.zexi.20190712.100746.397326

@@ -34,22 +34,27 @@ Summary for GFS Paper
         time python3 letter_freq.py sampleBook.txt
         ```
 	
-      - Output files are called letter_freq_local.log and letter_freq_vm.log
-      - Running time comparison:
+      - Output: logs/letter_freq_local.log	logs/letter_freq_vm.log
+      - Run time comparison:
       
-        vm: real 27.973s	user 27.696s	sys 0.240s
-        
-	    local: real 30.898s   	user 30.149s    sys 0.451s
+      		vm: real 27.973s	user 27.696s	sys 0.240s
+	  		local: real 30.898s   	user 30.149s    sys 0.451s
         
     7. Create storage bucket in Google storage and upload input file from (6), note time compared to uploading in 6.
     
+      - Output: logs/vm_upload.log	logs/cloud_upload.log
+      - Run time comparison:
+      
+      		vm :   real 6.425s	  user 0.600s	sys 0.351s
+      		cloud: real  6.354s       user 0.741s   sys 0.471s
+      
     8. Use gsutil from VM to copy file from Google storage
         ```python
         gsutil cp gs://my-bucket/sampleBook.txt .
         ```
     9. Create python script to create a large input for (6) by appending a bunch of copies of the input you used in (6). Time MRJob on the larger input.
 	- Refer to main.py 
-	- Output file is called output.log
+	- Output: logs/output.log
 	- Usage example:
         ```bash
         make COPIES=20 run
@@ -57,9 +62,31 @@ Summary for GFS Paper
 	
 # Part 3
 5. Create a Hadoop cluster using dataproc – see instructions in MRJob documentation
+
     1. Create python script to create a large input for (4.6) by appending a bunch of copies of the input you used in (4.6). Time MRJob on the larger input.
+        ```
+        python3 ../Lab2/Part2/letter_freq.py -r dataproc 25_sampleBook.txt
+        ```
+	- Output: logs/default_25copies.log
+	- Runtime: 18:50
     2. Explore different parameter settings and see how they affect the runtime
+        ```
+        python3 ../Lab2/Part2/letter_freq.py -r dataproc 25_sampleBook.txt --instance-type n1-standard-2 --num-core-instances 7
+        ```
+	- Output: logs/2cpu7inst_25copies.log
+	- Runtime: 07:56
 	
+        ```
+        python3 ../Lab2/Part2/letter_freq.py -r dataproc 25_sampleBook.txt --instance-type n1-highcpu-4 --num-core-instances 5
+        ```
+	- Output: logs/4cpu5inst_25copies.log
+	- Runtime: 03:42
+	
+        ```
+        python3 ../Lab2/Part2/letter_freq.py -r dataproc 25_sampleBook.txt --instance-type n1-highcpu-8 --num-core-instances 2
+        ```
+	- Output: logs/8cpu2inst_25copies.log
+	- Runtime: 02:56
 
 
     

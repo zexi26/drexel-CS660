@@ -1,0 +1,8 @@
+Script started on Tue Jul 16 20:41:56 2019
+[?1034hbash-3.2$ time gcloud compute scp ~/sampleBook.txt cs660:~
+sampleBook.txt                                  0%    0     0.0KB/s   --:-- ETAsampleBook.txt                                 81% 2688KB   2.6MB/s   00:00 ETAsampleBook.txt                                100% 3281KB   1.6MB/s   00:02    sampleBook.txt                                100% 3281KB   1.1MB/s   00:03    sampleBook.txt                                100% 3281KB 817.8KB/s   00:04    
+
+real	0m6.425s
+user	0m0.600s
+sys	0m0.351s
+bash-3.2$ 
