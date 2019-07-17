@@ -37,7 +37,7 @@ Summary for GFS Paper
       - Output: letter_freq_local.log & letter_freq_vm.log
       - Run time comparison:
       
-          -vm: real 27.973s	user 27.696s	sys 0.240s
+           -vm: real 27.973s	user 27.696s	sys 0.240s
         
 	  -local: real 30.898s   	user 30.149s    sys 0.451s
         
