@@ -34,7 +34,7 @@ Summary for GFS Paper
         time python3 letter_freq.py sampleBook.txt
         ```
 	
-      - Output: letter_freq_local.log & letter_freq_vm.log
+      - Output: logs/letter_freq_local.log logs/letter_freq_vm.log
       - Run time comparison:
       
       		vm: real 27.973s	user 27.696s	sys 0.240s
@@ -42,7 +42,7 @@ Summary for GFS Paper
         
     7. Create storage bucket in Google storage and upload input file from (6), note time compared to uploading in 6.
     
-      - Output: vm_upload.log & cloud_upload.log
+      - Output: logs/vm_upload.log logs/cloud_upload.log
       - Run time comparison:
       
       		vm : real 6.425s	  user 0.600s	sys 0.351s
@@ -54,7 +54,7 @@ Summary for GFS Paper
         ```
     9. Create python script to create a large input for (6) by appending a bunch of copies of the input you used in (6). Time MRJob on the larger input.
 	- Refer to main.py 
-	- Output file is called output.log
+	- Output: logs/output.log
 	- Usage example:
         ```bash
         make COPIES=20 run
