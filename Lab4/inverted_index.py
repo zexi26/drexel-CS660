@@ -1,22 +1,21 @@
+import os
 import re
-from collections import defaultdict
-from operator import itemgetter
+from collections import defaultdict, OrderedDict
 
 from mrjob.job import MRJob
-from mrjob.protocol import JSONValueProtocol
 
 WORD_RE = re.compile("[\w']+")
 
 
-def encode_document(id, text):
-    return JSONValueProtocol.write(None, {"id": id, "text": text}) + "\n"
-
-
 class InvertedIndexBaseline(MRJob):
-    INPUT_PROTOCOL = JSONValueProtocol
+
+    def mapper_init(self):
+        self.document_id = int(os.path.basename(os.environ["map_input_file"]).split(".")[0])
 
     def mapper(self, _, json):
-        document_id, document, h = json["id"], json["text"].lower(), defaultdict(int)
+        self.increment_counter("mapper", "calls", 1)
+
+        document, document_id, h = json, self.document_id, defaultdict(int)
 
         for term in WORD_RE.findall(document):
             h[term] += 1
@@ -25,24 +24,48 @@ class InvertedIndexBaseline(MRJob):
             yield term, (document_id, frequency)
 
     def reducer(self, term, values):
-        postings = [value for value in values]
-        postings.sort(key=itemgetter(0))
+        self.increment_counter("reducer", "calls", 1)
+
+        postings = defaultdict(int)
+
+        for document_id, frequency in values:
+            postings[document_id] += frequency
+
+        postings = OrderedDict(sorted(postings.items()))
 
         yield term, postings
 
 
 class InvertedIndexRevised(MRJob):
+    SORT_VALUES = True
 
-    def mapper(self, _, line):
-        document_id, document, h = int(line[:5]), line[5:].lower(), defaultdict(int)
+    def mapper_init(self):
+        self.document_id = int(os.path.basename(os.environ["map_input_file"]).split(".")[0])
+
+    def mapper(self, _, json):
+        self.increment_counter("mapper", "calls", 1)
+
+        document, document_id, h = json, self.document_id, defaultdict(int)
 
         for term in WORD_RE.findall(document):
             h[term] += 1
 
         for term, frequency in h.items():
-            yield (term, document_id), frequency
+            yield term, (document_id, frequency)
+
+    def reducer(self, term, values):
+        self.increment_counter("reducer", "calls", 1)
+
+        postings = defaultdict(int)
+
+        for document_id, frequency in values:
+            postings[document_id] += frequency
+
+        # No need to sort!
+
+        yield term, postings
 
 
 if __name__ == "__main__":
-    InvertedIndexBaseline.run()
-    #InvertedIndexRevised.run()
+    # InvertedIndexBaseline.run()
+    InvertedIndexRevised.run()
