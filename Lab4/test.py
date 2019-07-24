@@ -1,7 +1,6 @@
 from mrjob.job import MRJob
 import re
 import csv
-from mrjob.step import MRStep
 from collections import defaultdict
 
 WORD_RE = re.compile("[\w']+")
@@ -18,24 +17,19 @@ class MRInvertedIndex(MRJob):
     def reducer_count(self, key, values):
         count = defaultdict(int)
         for value in values:
-            count[(key, value)] += 1
+            count[value] += 1
+            
+        postings = []
         for k, v in count.items():
-            yield None, (k, v)
+            postings.append((k, v))
+        
+        yield key, postings
 
-    # def reducer_list(self, _, pairs):
-        # postings = defaultdict()
-        # for pair in pairs:
-            # postings[pair[0]].append(pair[1], count)
-
-        # for (k, v) in postings.items():
-        #     yield k, v
 
     def steps(self):
         return [
             MRStep(mapper=self.mapper,
-                   reducer=self.reducer_count),
-            # MRStep(reducer=self.reducer_list)
-
+                   reducer=self.reducer_count)
         ]
 
 
