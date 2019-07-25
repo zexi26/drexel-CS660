@@ -1,4 +1,4 @@
-from mrjob.job import MRJob
+from mrjob.job import MRJob, MRStep
 import re
 import csv
 from collections import defaultdict
@@ -15,14 +15,17 @@ class MRInvertedIndex(MRJob):
                 yield word, doc_id
 
     def reducer_count(self, key, values):
+        """ Given a term and a list document IDs
+            yield the term with a list of [ (doc_id, occurrences), ... ] """
         count = defaultdict(int)
-        for value in values:
-            count[value] += 1
-            
+
+        for document_id in values:
+            count[document_id] += 1
+
         postings = []
-        for k, v in count.items():
-            postings.append((k, v))
-        
+        for document_id, occurrences in count.items():
+            postings.append((document_id, occurrences))
+
         yield key, postings
 
 
