@@ -1,7 +1,8 @@
-from mrjob.job import MRJob, MRStep
-import re
 import csv
+import re
 from collections import defaultdict
+
+from mrjob.job import MRJob
 
 WORD_RE = re.compile("[\w']+")
 
@@ -14,7 +15,7 @@ class MRInvertedIndex(MRJob):
             for word in WORD_RE.findall(row[1].lower()):
                 yield word, doc_id
 
-    def reducer_count(self, key, values):
+    def reducer(self, key, values):
         """ Given a term and a list document IDs
             yield the term with a list of [ (doc_id, occurrences), ... ] """
         count = defaultdict(int)
@@ -27,13 +28,6 @@ class MRInvertedIndex(MRJob):
             postings.append((document_id, occurrences))
 
         yield key, postings
-
-
-    def steps(self):
-        return [
-            MRStep(mapper=self.mapper,
-                   reducer=self.reducer_count)
-        ]
 
 
 if __name__ == '__main__':
