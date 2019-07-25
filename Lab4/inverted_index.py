@@ -32,10 +32,20 @@ class InvertedIndexRaw(MRJob):
             for term, frequency in h.items():
                 yield term, (document_id, frequency)
 
-    def reducer(self, key, values):
+    def reducer(self, term, values):
+        """Reducer function
+
+        Args:
+            term (str): a term
+            values (generator): a list of tuples from the mapper
+
+        Yields:
+            str, list: a term paired with a list of postings (doc_id, tf)
+
+        """
         self.increment_counter("reducer", "calls", 1)
 
-        yield key, [value for value in values]
+        yield term, [value for value in values]
 
 
 class InvertedIndexBaseline(MRJob):
