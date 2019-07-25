@@ -45,7 +45,7 @@ class InvertedIndexRaw(MRJob):
         """
         self.increment_counter("reducer", "calls", 1)
 
-        yield term, [value for value in values]
+        yield term, list(values)
 
 
 class InvertedIndexBaseline(MRJob):
