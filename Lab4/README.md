@@ -22,17 +22,37 @@ python3 inverted_index_bl.py -r dataproc guten1/* --instance-type n1-standard-2 
   4 min 9 sec
   
 python3 inverted_index_bl.py -r dataproc guten1/* --instance-type n1-highcpu-4 --num-core-instances 5
-  2 min 45 sec	
+  2 min 45 sec
   
 python3 inverted_index_bl.py -r dataproc guten1/* --instance-type n1-highcpu-8 --num-core-instances 2
-  2 min 30 sec	
+  2 min 30 sec
 ```
 #### Revised implementation from section 4.4 using SORT_VALUES instead of value-to-key conversion.
 ```bash
 python3 inverted_index_rev.py -r dataproc guten1/*
+  17 min 17 sec
+  
+python3 inverted_index_rev.py -r dataproc guten1/* --instance-type n1-standard-2 --num-core-instances 7
+  4 min 7 sec
+
+python3 inverted_index_rev.py -r dataproc guten1/* --instance-type n1-highcpu-4 --num-core-instances 5
+  3 min 7 sec
+
+python3 inverted_index_rev.py -r dataproc guten1/* --instance-type n1-highcpu-8 --num-core-instances 2
+  2 min 10 sec
 ```
 
 #### Revised implementation that uses ```mapper_raw``` to read entire file.
 ```bash
 python3 inverted_index_raw.py -r dataproc guten1/*
+  20 min 43 sec
+
+python3 inverted_index_raw.py -r dataproc guten1/* --instance-type n1-standard-2 --num-core-instances 7
+  4 min 7 sec
+
+python3 inverted_index_raw.py -r dataproc guten1/* --instance-type n1-highcpu-4 --num-core-instances 5
+  2 min 59 sec
+
+python3 inverted_index_raw.py -r dataproc guten1/* --instance-type n1-highcpu-8 --num-core-instances 2
+  2 min 17 sec	
 ```
