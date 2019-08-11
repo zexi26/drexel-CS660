@@ -53,8 +53,6 @@ if __name__ == "__main__":
                 dangling_nodes = counters[0]["dangling_nodes"]
                 num_nodes = counters[0]["nodes"]["count"]
 
-                print([str(num_nodes), str(dangling_nodes)])
-
                 dangling_job = DanglingJob([output_dir, [str(num_nodes), str(dangling_nodes)], main_job_output])
 
                 with dangling_job.make_runner() as dangling_runner:
@@ -65,15 +63,15 @@ if __name__ == "__main__":
 
             last_v = v
 
-            for line in out_job.parse_output(out_runner.cat_output()):
-                print(line)
-
             # get page_rank vector for this iteration
             v = [value[0] for _, value in out_job.parse_output(out_runner.cat_output())]
 
             # compare it to last iteration to check for convergence
             if len(last_v) > 0:
                 running = np.linalg.norm(np.array(v) - np.array(last_v), 2) > epsilon
+
+            for line in out_job.parse_output(out_runner.cat_output()):
+                print(line)
 
             iteration += 1
 
