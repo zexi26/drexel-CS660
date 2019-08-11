@@ -1,8 +1,10 @@
 import argparse
 import logging
+import shutil
+import os
 
 import numpy as np
-from page_rank import PageRankSimple
+from page_rank import PageRankJob, DanglingJob
 
 if __name__ == "__main__":
     logging.basicConfig(format="%(levelname)s: %(message)s", level=logging.INFO)
@@ -14,7 +16,10 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     input_file = args.input
-    output_dir = "output/graph-%s"
+    output_dir = "output/"
+
+    if os.path.isdir(output_dir):
+        shutil.rmtree(output_dir)
 
     iteration = 1
     running = True
@@ -28,21 +33,48 @@ if __name__ == "__main__":
     while running:
         logging.info("Running iteration %s" % iteration)
 
-        job_input = input_file if iteration == 1 else output_dir % (iteration - 1)
-        job_output = "--output-dir=%s" % (output_dir % iteration)
+        dangling_nodes = []
 
-        job = PageRankSimple([job_input, job_output])
+        main_job_input = input_file if iteration == 1 else output_dir
+        main_job_output = "--output-dir=%s" % (output_dir)
 
-        with job.make_runner() as runner:
-            runner.run()
+        main_job = PageRankJob([main_job_input, main_job_output])
+
+        with main_job.make_runner() as main_runner:
+            main_runner.run()
+
+            counters = main_runner.counters()
+
+            out_job = main_job
+            out_runner = main_runner
+
+            # check for dangling nodes
+            if len(counters[0]) > 1:
+                dangling_nodes = counters[0]["dangling_nodes"]
+                num_nodes = counters[0]["nodes"]["count"]
+
+                print([str(num_nodes), str(dangling_nodes)])
+
+                dangling_job = DanglingJob([output_dir, [str(num_nodes), str(dangling_nodes)], main_job_output])
+
+                with dangling_job.make_runner() as dangling_runner:
+                    dangling_runner.run()
+
+                    out_job = dangling_job
+                    out_runner = dangling_runner
 
             last_v = v
 
+            for line in out_job.parse_output(out_runner.cat_output()):
+                print(line)
+
             # get page_rank vector for this iteration
-            v = [value[0] for _, value in job.parse_output(runner.cat_output())]
+            v = [value[0] for _, value in out_job.parse_output(out_runner.cat_output())]
 
             # compare it to last iteration to check for convergence
             if len(last_v) > 0:
                 running = np.linalg.norm(np.array(v) - np.array(last_v), 2) > epsilon
 
-        iteration += 1
+            iteration += 1
+
+        # running = False
