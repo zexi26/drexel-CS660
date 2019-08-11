@@ -17,10 +17,15 @@ class DanglingJob(MRJob):
         input = self.options.dangling_nodes
 
         num_nodes = int(input[0])
-        dangling_nodes = ast.literal_eval(input[1])
+        random_surfer = float(input[1])
+        dangling_nodes = ast.literal_eval(input[2])
+        dangling_mass = 0
+        page_rank = float(node[0])
 
-        for page_rank, dangling_id in dangling_nodes.items():
-            node[0] += (float(page_rank) / num_nodes)
+        for mass, dangling_id in dangling_nodes.items():
+            dangling_mass += (float(mass) / num_nodes)
+
+        node[0] = random_surfer * (1 / num_nodes) + (1 - random_surfer) * (dangling_mass + page_rank)
 
         yield node_id, node
 

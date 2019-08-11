@@ -12,6 +12,7 @@ if __name__ == "__main__":
 
     parser.add_argument("input", type=str, help="Input file")
     parser.add_argument("num_nodes", type=int, help="Number of nodes")
+    parser.add_argument("--random_surfer", type=float, default=0.85, help="Random surfer probability")
     parser.add_argument("--epsilon", type=float, default=1.0e-8, help="Convergence value")
 
     args = parser.parse_args()
@@ -20,6 +21,7 @@ if __name__ == "__main__":
     output_dir = "output/"
 
     num_nodes = args.num_nodes
+    random_surfer = args.random_surfer
 
     if os.path.isdir(output_dir):
         shutil.rmtree(output_dir)
@@ -48,33 +50,30 @@ if __name__ == "__main__":
 
             counters = main_runner.counters()
 
-            out_job = main_job
-            out_runner = main_runner
+            dangling_nodes = {}
 
             # check for dangling nodes
             if len(counters[0]) > 0:
                 dangling_nodes = counters[0]["dangling_nodes"]
 
-                dangling_job = DanglingJob([output_dir, [str(num_nodes), str(dangling_nodes)], main_job_output])
+            dangling_job = DanglingJob(
+                [output_dir, [str(num_nodes), str(random_surfer), str(dangling_nodes)], main_job_output])
 
-                with dangling_job.make_runner() as dangling_runner:
-                    dangling_runner.run()
+            with dangling_job.make_runner() as dangling_runner:
+                dangling_runner.run()
 
-                    out_job = dangling_job
-                    out_runner = dangling_runner
+                last_v = v
 
-            last_v = v
+                # get page_rank vector for this iteration
+                v = [value[0] for _, value in dangling_job.parse_output(dangling_runner.cat_output())]
 
-            # get page_rank vector for this iteration
-            v = [value[0] for _, value in out_job.parse_output(out_runner.cat_output())]
+                # compare it to last iteration to check for convergence
+                if len(last_v) > 0:
+                    running = np.linalg.norm(np.array(v) - np.array(last_v), 2) > epsilon
 
-            # compare it to last iteration to check for convergence
-            if len(last_v) > 0:
-                running = np.linalg.norm(np.array(v) - np.array(last_v), 2) > epsilon
-
-            for line in out_job.parse_output(out_runner.cat_output()):
-                print(line)
+                for line in dangling_job.parse_output(dangling_runner.cat_output()):
+                    print(line)
 
             iteration += 1
 
-        # running = False
+            # break
