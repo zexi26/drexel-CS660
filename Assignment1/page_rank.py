@@ -29,7 +29,6 @@ class PageRankJob(MRJob):
     INPUT_PROTOCOL = JSONProtocol
 
     def mapper(self, node_id, node):
-        self.increment_counter("nodes", "count", 1)
         # node consists of "node_id \t [page_rank, [adjacency_list]]"
         page_rank, adjacency_list = node
 

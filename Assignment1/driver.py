@@ -11,12 +11,15 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="PageRank with MRJob")
 
     parser.add_argument("input", type=str, help="Input file")
+    parser.add_argument("num_nodes", type=int, help="Number of nodes")
     parser.add_argument("--epsilon", type=float, default=1.0e-8, help="Convergence value")
 
     args = parser.parse_args()
 
     input_file = args.input
     output_dir = "output/"
+
+    num_nodes = args.num_nodes
 
     if os.path.isdir(output_dir):
         shutil.rmtree(output_dir)
@@ -49,9 +52,8 @@ if __name__ == "__main__":
             out_runner = main_runner
 
             # check for dangling nodes
-            if len(counters[0]) > 1:
+            if len(counters[0]) > 0:
                 dangling_nodes = counters[0]["dangling_nodes"]
-                num_nodes = counters[0]["nodes"]["count"]
 
                 dangling_job = DanglingJob([output_dir, [str(num_nodes), str(dangling_nodes)], main_job_output])
 
