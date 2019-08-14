@@ -5,6 +5,8 @@ from mrjob.protocol import JSONProtocol
 
 
 class DanglingJob(MRJob):
+    """Computes modified page rank value"""
+
     INPUT_PROTOCOL = JSONProtocol
 
     def configure_args(self):
@@ -13,7 +15,7 @@ class DanglingJob(MRJob):
         self.add_passthru_arg("dangling_nodes", type=list, help="List of dangling nodes and their rank")
 
     def mapper(self, node_id, node):
-        # get the nodes!
+        # get any dangling nodes
         input = self.options.dangling_nodes
 
         num_nodes = int(input[0])
@@ -22,19 +24,24 @@ class DanglingJob(MRJob):
         dangling_mass = 0
         page_rank = float(node[0])
 
-        for mass, dangling_id in dangling_nodes.items():
-            dangling_mass += (float(mass) / num_nodes)
+        # add mass of dangling node
+        for dangling_id, mass in dangling_nodes.items():
+            mass = float(mass) / 1000000
+            dangling_mass += (mass / num_nodes)
 
+        # compute modified page rank
         node[0] = random_surfer * (1 / num_nodes) + (1 - random_surfer) * (dangling_mass + page_rank)
 
         yield node_id, node
 
 
 class PageRankJob(MRJob):
+    """Computes raw page rank value and tracks dangling nodes"""
+
     INPUT_PROTOCOL = JSONProtocol
 
     def mapper(self, node_id, node):
-        # node consists of "node_id \t [page_rank, [adjacency_list]]"
+        # input consists of "node_id \t [page_rank, [adjacency_list]]"
         page_rank, adjacency_list = node
 
         # yield the actual node so it can be used later (in the reducer)
@@ -48,8 +55,8 @@ class PageRankJob(MRJob):
             for adjacent_id in adjacency_list:
                 yield adjacent_id, p
         else:
-            # we got us a dangling node here
-            self.increment_counter("dangling_nodes", page_rank, node_id)
+            # keep track of dangling nodes
+            self.increment_counter("dangling_nodes", node_id, int(page_rank * 1000000))
 
     def reducer(self, node_id, values):
         node = None
