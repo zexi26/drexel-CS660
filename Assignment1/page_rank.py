@@ -26,7 +26,7 @@ class DanglingJob(MRJob):
 
         # add mass of dangling node
         for dangling_id, mass in dangling_nodes.items():
-            mass = float(mass) / 1000000
+            mass = (float(mass) / 1000000)
             dangling_mass += (mass / num_nodes)
 
         # compute modified page rank
