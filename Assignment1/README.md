@@ -54,3 +54,16 @@ Node | [PageRank, Adjacency List]
 5    |   [0.1916359021149219, [1, 2, 3]]
 4    |   [0.22077115389347657, []]
 3    |   [0.20121769719257815, [4]]
+
+### PageRank Random Graph Example
+
+A randomly constructed graph seems to converge quickly, and the number of
+iterations actually decrease as the size of graph increases.
+
+Graph Size | Iterations | Runtime
+---------- | ---------- | -------
+50    | 5 | 1.727s
+100   | 5 | 2.143s
+250   | 4 | 3.382s
+1000  | 4 | 33.022s
+10000 | 1 | 6m35.225s

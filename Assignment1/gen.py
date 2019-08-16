@@ -14,7 +14,7 @@ if __name__ == "__main__":
             adjacency_list = [1 / num_nodes]
 
             while len(adjacency_list) == 1:
-                adjacency_list.extend([random.sample(range(1, num_nodes + 1), random.choice(range(1, num_nodes)))])
+                adjacency_list.extend([random.sample(range(1, num_nodes + 1), random.choice(range(0, num_nodes)))])
 
                 if n in adjacency_list[1:]:
                     adjacency_list[1:].remove(n)

@@ -18,13 +18,13 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     input_file = args.input
-    output_dir = "output/"
+    output_dir = "output/iter-%s"
 
     num_nodes = args.num_nodes
     random_surfer = args.random_surfer
 
-    if os.path.isdir(output_dir):
-        shutil.rmtree(output_dir)
+    if os.path.isdir("output/"):
+        shutil.rmtree("output/")
 
     iteration = 1
     running = True
@@ -40,8 +40,8 @@ if __name__ == "__main__":
 
         dangling_nodes = []
 
-        main_job_input = input_file if iteration == 1 else output_dir
-        main_job_output = "--output-dir=%s" % (output_dir)
+        main_job_input = input_file if iteration == 1 else (output_dir % (iteration - 1))
+        main_job_output = "--output-dir=%s" % (output_dir % iteration)
 
         main_job = PageRankJob([main_job_input, main_job_output])
 
@@ -57,7 +57,7 @@ if __name__ == "__main__":
                 dangling_nodes = counters[0]["dangling_nodes"]
 
             dangling_job = DanglingJob(
-                [output_dir, [str(num_nodes), str(random_surfer), str(dangling_nodes)], main_job_output])
+                [output_dir % iteration, [str(num_nodes), str(random_surfer), str(dangling_nodes)], main_job_output])
 
             with dangling_job.make_runner() as dangling_runner:
                 dangling_runner.run()
@@ -71,7 +71,7 @@ if __name__ == "__main__":
                 if len(last_v) > 0:
                     running = np.linalg.norm(np.array(v) - np.array(last_v), 2) > epsilon
 
-                for line in dangling_job.parse_output(dangling_runner.cat_output()):
-                    print(line)
+                # for line in dangling_job.parse_output(dangling_runner.cat_output()):
+                #     print(line)
 
             iteration += 1
