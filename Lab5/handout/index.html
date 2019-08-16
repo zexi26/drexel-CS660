@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Handout</title>
+<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="highlight.css">
+<link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+<script src="marked.js"></script>
+<script src="script.js"></script>
+<script src="highlight.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+<script type="text/x-mathjax-config">MathJax.Hub.Config({tex2jax: {inlineMath: [["$","$"]]}});</script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+</head>
+<body>
+<article><div class="markdown"># CS660 Lab 5
+## Collaborators
+- Evan Lavender
+- Merlin Cherian
+- Saffat Hasan
+- Zexi Yu
+
+## Usage
+
+```bash
+spark-submit --packages graphframes:graphframes:0.7.0-spark2.4-s_2.11 main.py
+```</div>
+<pre><code class="python">import io
+from contextlib import redirect_stdout
+
+import handout
+from graphframes import GraphFrame
+from pyspark.shell import sqlContext
+
+doc = handout.Handout("handout")</code></pre>
+<div class="markdown"> ## Create some edges and vertices </div>
+<pre><code class="python">vertices = sqlContext.createDataFrame([
+    (1,),
+    (2,),
+    (3,),
+    (4,)],
+    ["id"])
+
+edges = sqlContext.createDataFrame([
+    (1, 2),
+    (1, 3),
+    (2, 3),
+    (2, 4),
+    (3, 1),
+    (4, 1),
+    (4, 3)],
+    ["src", "dst"])
+
+graph = GraphFrame(vertices, edges)</code></pre>
+<div class="markdown"> ## Show Vertices </div>
+<pre><code class="python">with io.StringIO() as buf, redirect_stdout(buf):
+    graph.vertices.show()
+    doc.add_text(buf.getvalue())
+doc.show()</code></pre>
+<pre class="message">+---+
+| id|
++---+
+|  1|
+|  2|
+|  3|
+|  4|
++---+
+
+
+</pre>
+<div class="markdown"> ## Show Edges </div>
+<pre><code class="python">with io.StringIO() as buf, redirect_stdout(buf):
+    graph.edges.show()
+    doc.add_text(buf.getvalue())
+doc.show()</code></pre>
+<pre class="message">+---+---+
+|src|dst|
++---+---+
+|  1|  2|
+|  1|  3|
+|  2|  3|
+|  2|  4|
+|  3|  1|
+|  4|  1|
+|  4|  3|
++---+---+
+
+
+</pre>
+</article>
+</body>
+</html>

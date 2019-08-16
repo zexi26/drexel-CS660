@@ -21,7 +21,7 @@ import handout
 from graphframes import GraphFrame
 from pyspark.shell import sqlContext
 
-doc = handout.Handout("output")
+doc = handout.Handout("handout")
 
 """ ## Create some edges and vertices """
 vertices = sqlContext.createDataFrame([
