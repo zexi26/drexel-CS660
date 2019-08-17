@@ -32,6 +32,12 @@ from graphframes import GraphFrame
 from pyspark.shell import sqlContext
 
 doc = handout.Handout("handout")</code></pre>
+<div class="markdown"> ## Helper functions </div>
+<pre><code class="python">def display_graph(item):
+    # Redirects Standard Out to the document
+    with io.StringIO() as buf, redirect_stdout(buf):
+        item.show()
+        doc.add_text(buf.getvalue())</code></pre>
 <div class="markdown"> ## Create some edges and vertices </div>
 <pre><code class="python">vertices = sqlContext.createDataFrame([
     (1,),
@@ -52,9 +58,7 @@ edges = sqlContext.createDataFrame([
 
 graph = GraphFrame(vertices, edges)</code></pre>
 <div class="markdown"> ## Show Vertices </div>
-<pre><code class="python">with io.StringIO() as buf, redirect_stdout(buf):
-    graph.vertices.show()
-    doc.add_text(buf.getvalue())
+<pre><code class="python">display_graph(graph.vertices)
 doc.show()</code></pre>
 <pre class="message">+---+
 | id|
@@ -68,9 +72,7 @@ doc.show()</code></pre>
 
 </pre>
 <div class="markdown"> ## Show Edges </div>
-<pre><code class="python">with io.StringIO() as buf, redirect_stdout(buf):
-    graph.edges.show()
-    doc.add_text(buf.getvalue())
+<pre><code class="python">display_graph(graph.edges)
 doc.show()</code></pre>
 <pre class="message">+---+---+
 |src|dst|
@@ -83,6 +85,53 @@ doc.show()</code></pre>
 |  4|  1|
 |  4|  3|
 +---+---+
+
+
+</pre>
+<div class="markdown"> ## Show Degrees (Sum of in and out degrees by node) </div>
+<pre><code class="python">display_graph(graph.degrees)
+doc.show()</code></pre>
+<pre class="message">+---+------+
+| id|degree|
++---+------+
+|  1|     4|
+|  3|     4|
+|  2|     3|
+|  4|     3|
++---+------+
+
+
+</pre>
+<div class="markdown"> ## Get pagerank using m=0.15 and tolerance=0.01 </div>
+<pre><code class="python">pr = graph.pageRank(resetProbability=0.15, tol=0.01)</code></pre>
+<div class="markdown"> ### look at the pagerank score for every vertex </div>
+<pre><code class="python">display_graph(pr.vertices)
+doc.show()</code></pre>
+<pre class="message">+---+-------------------+
+| id|           pagerank|
++---+-------------------+
+|  1| 1.4441258840403108|
+|  3| 1.2919419378218675|
+|  2| 0.7782853577851119|
+|  4|0.48564682035271006|
++---+-------------------+
+
+
+</pre>
+<div class="markdown"> ### look at the weight of every edge </div>
+<pre><code class="python">display_graph(pr.edges)
+doc.show()</code></pre>
+<pre class="message">+---+---+------+
+|src|dst|weight|
++---+---+------+
+|  1|  3|   0.5|
+|  4|  3|   0.5|
+|  2|  3|   0.5|
+|  4|  1|   0.5|
+|  2|  4|   0.5|
+|  1|  2|   0.5|
+|  3|  1|   1.0|
++---+---+------+
 
 
 </pre>

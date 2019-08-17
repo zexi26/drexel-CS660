@@ -23,6 +23,13 @@ from pyspark.shell import sqlContext
 
 doc = handout.Handout("handout")
 
+""" ## Helper functions """
+def display_graph(item):
+    # Redirects Standard Out to the document
+    with io.StringIO() as buf, redirect_stdout(buf):
+        item.show()
+        doc.add_text(buf.getvalue())
+
 """ ## Create some edges and vertices """
 vertices = sqlContext.createDataFrame([
     (1,),
@@ -44,13 +51,24 @@ edges = sqlContext.createDataFrame([
 graph = GraphFrame(vertices, edges)
 
 """ ## Show Vertices """
-with io.StringIO() as buf, redirect_stdout(buf):
-    graph.vertices.show()
-    doc.add_text(buf.getvalue())
+display_graph(graph.vertices)
 doc.show()
 
 """ ## Show Edges """
-with io.StringIO() as buf, redirect_stdout(buf):
-    graph.edges.show()
-    doc.add_text(buf.getvalue())
+display_graph(graph.edges)
+doc.show()
+
+""" ## Show Degrees (Sum of in and out degrees by node) """
+display_graph(graph.degrees)
+doc.show()
+
+""" ## Get pagerank using m=0.15 and tolerance=0.01 """
+pr = graph.pageRank(resetProbability=0.15, tol=0.01)
+
+""" ### look at the pagerank score for every vertex """
+display_graph(pr.vertices)
+doc.show()
+
+""" ### look at the weight of every edge """
+display_graph(pr.edges)
 doc.show()
