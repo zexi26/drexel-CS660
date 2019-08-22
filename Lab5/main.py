@@ -75,6 +75,20 @@ doc.show()
 display_graph(graph.degrees)
 doc.show()
 
+""" Show all motifs which satisfy a->b->c """
+display_graph(graph.find("(a)-[e]->(b); (b)-[e2]->(a)"))
+
+
+def display_graph(item):
+    # Redirects Standard Out to the document
+    with io.StringIO() as buf, redirect_stdout(buf):
+        graph.find("(a)-[e]->(b); (b)-[e2]->(a)").show()
+        redirect_to_handout(buf.getvalue())
+
+
+doc.show()
+
+
 """ ## Get pagerank using m=0.15 and tolerance=0.01
 """
 pr = graph.pageRank(resetProbability=0.15, tol=0.01)

@@ -41,6 +41,7 @@ doc = handout.Handout("handout")</code></pre>
 def redirect_to_handout(message):
     doc.add_text(message)
 
+
 def display_graph(item):
     # Redirects Standard Out to the document
     with io.StringIO() as buf, redirect_stdout(buf):
@@ -112,37 +113,53 @@ doc.show()</code></pre>
 
 
 </pre>
+<div class="markdown"> Show all motifs which satisfy a-&gt;b-&gt;c </div>
+<pre><code class="python">display_graph(graph.find("(a)-[e]-&gt;(b); (b)-[e2]-&gt;(a)"))
+def display_graph(item):
+    # Redirects Standard Out to the document
+    with io.StringIO() as buf, redirect_stdout(buf):
+        graph.find("(a)-[e]-&gt;(b); (b)-[e2]-&gt;(a)").show()
+        redirect_to_handout(buf.getvalue())
+
+doc.show()</code></pre>
+<pre class="message">+---+------+---+------+
+|  a|     e|  b|    e2|
++---+------+---+------+
+|[3]|[3, 1]|[1]|[1, 3]|
+|[4]|[4, 1]|[1]|[1, 4]|
+|[1]|[1, 4]|[4]|[4, 1]|
+|[1]|[1, 3]|[3]|[3, 1]|
++---+------+---+------+
+
+
+</pre>
 <div class="markdown"> ## Get pagerank using m=0.15 and tolerance=0.01</div>
 <pre><code class="python">pr = graph.pageRank(resetProbability=0.15, tol=0.01)</code></pre>
 <div class="markdown"> ### look at the pagerank score for every vertex </div>
 <pre><code class="python">display_graph(pr.vertices)
 doc.show()</code></pre>
-<pre class="message">+---+------------------+
-| id|          pagerank|
-+---+------------------+
-|  1|1.4645853473254988|
-|  3|1.1469145091124107|
-|  2|0.5777965605200768|
-|  4|0.8107035830420137|
-+---+------------------+
+<pre class="message">+---+------+---+------+
+|  a|     e|  b|    e2|
++---+------+---+------+
+|[3]|[3, 1]|[1]|[1, 3]|
+|[4]|[4, 1]|[1]|[1, 4]|
+|[1]|[1, 4]|[4]|[4, 1]|
+|[1]|[1, 3]|[3]|[3, 1]|
++---+------+---+------+
 
 
 </pre>
 <div class="markdown"> ### look at the weight of every edge</div>
 <pre><code class="python">display_graph(pr.edges)
 doc.show()</code></pre>
-<pre class="message">+---+---+------------------+
-|src|dst|            weight|
-+---+---+------------------+
-|  1|  3|0.3333333333333333|
-|  1|  4|0.3333333333333333|
-|  4|  3|               0.5|
-|  2|  3|               0.5|
-|  4|  1|               0.5|
-|  2|  4|               0.5|
-|  1|  2|0.3333333333333333|
-|  3|  1|               1.0|
-+---+---+------------------+
+<pre class="message">+---+------+---+------+
+|  a|     e|  b|    e2|
++---+------+---+------+
+|[3]|[3, 1]|[1]|[1, 3]|
+|[4]|[4, 1]|[1]|[1, 4]|
+|[1]|[1, 4]|[4]|[4, 1]|
+|[1]|[1, 3]|[3]|[3, 1]|
++---+------+---+------+
 
 
 </pre>
