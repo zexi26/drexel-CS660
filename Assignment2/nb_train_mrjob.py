@@ -2,13 +2,14 @@ import re
 from collections import defaultdict
 
 from mrjob.job import MRJob
-from mrjob.protocol import JSONProtocol
+from mrjob.protocol import JSONProtocol, PickleProtocol
 
 WORD_RE = re.compile(r'\w+')
 
 
-class NaiveBayesJob(MRJob):
+class NaiveBayesTrainJob(MRJob):
     INPUT_PROTOCOL = JSONProtocol
+    OUTPUT_PROTOCOL = JSONProtocol
     SORT_VALUES = True
 
     def mapper(self, category, email):
@@ -48,4 +49,4 @@ class NaiveBayesJob(MRJob):
 
 
 if __name__ == "__main__":
-    NaiveBayesJob.run()
+    NaiveBayesTrainJob.run()
