@@ -20,6 +20,8 @@ class NaiveBayesClassifier(MRJob):
 
             training_data[json.loads(k_str)] = json.loads(v_str)
 
+        ### this stuff may be moved to reducer, not sure
+
         # document counts
         spam_d_count = training_data["1_total"]
         ham_d_count = training_data["0_total"]
