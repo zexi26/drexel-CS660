@@ -43,8 +43,8 @@ class NaiveBayesTrainJob(MRJob):
                 token, frequency = values
                 frequencies[token] += frequency
 
-        yield category, total
-        yield category, frequencies
+        yield "%i_total" % category, total
+        yield str(category), frequencies
         # yield category, list(token_frequencies)
 
 
