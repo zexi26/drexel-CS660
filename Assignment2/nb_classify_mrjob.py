@@ -1,7 +1,7 @@
+import hashlib
 import json
 import re
 from collections import defaultdict
-import hashlib
 
 import numpy as np
 from mrjob.job import MRJob
@@ -55,7 +55,7 @@ class NaiveBayesClassifier(MRJob):
         p_spam = np.prod([((self.spam_dict.get(token[0], 0) + 1) / self.spam_t_count) ** token[1] for token in tokens])
         p_ham = np.prod([((self.ham_dict.get(token[0], 0) + 1) / self.ham_t_count) ** token[1] for token in tokens])
 
-        yield key, (1 if p_spam > p_ham else 0)
+        yield key, (1 if (self.spam_prior * p_spam) > (self.ham_prior * p_ham) else 0)
 
 
 if __name__ == "__main__":
