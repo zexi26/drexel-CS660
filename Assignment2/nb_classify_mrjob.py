@@ -16,6 +16,8 @@ class NaiveBayesClassifier(MRJob):
         self.add_file_arg("--training_data")
 
     def mapper(self, _, email):
+        self.increment_counter("calls", "mapper", 1)
+
         freqs = defaultdict(int)
 
         for token in WORD_RE.findall(email):
@@ -26,6 +28,8 @@ class NaiveBayesClassifier(MRJob):
             yield key, (token, freq)
 
     def reducer_init(self):
+        self.increment_counter("calls", "reducer_init", 1)
+
         training_data = {}
 
         for line in open(self.options.training_data, "r"):
@@ -51,6 +55,8 @@ class NaiveBayesClassifier(MRJob):
         self.ham_prior = ham_d_count / total_d_count
 
     def reducer(self, key, values):
+        self.increment_counter("calls", "reducer", 1)
+
         tokens = list(values)
         p_spam = np.prod([((self.spam_dict.get(token, 0) + 1) / self.spam_t_count) ** freq for token, freq in tokens])
         p_ham = np.prod([((self.ham_dict.get(token, 0) + 1) / self.ham_t_count) ** freq for token, freq in tokens])

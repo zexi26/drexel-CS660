@@ -1,5 +1,8 @@
 import csv
+import re
 import sys
+
+WORD_RE = re.compile(r'\w+')
 
 if __name__ == "__main__":
     filename = sys.argv[1]
@@ -17,9 +20,6 @@ if __name__ == "__main__":
             if count == 1:
                 continue
 
-            line = '%i\t"%s"\n' % (0 if row[0] == "ham" else 1, row[1])
+            line = '%i\t"%s"\n' % (0 if row[0] == "ham" else 1, " ".join(WORD_RE.findall(row[1])))
             print(line)
             output_file.write(line)
-
-            if count == 10:
-                break
