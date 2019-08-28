@@ -31,6 +31,7 @@ if __name__ == "__main__":
             "false-spam": 0,
             "true-ham": 0,
             "false-ham": 0,
+            "accuracy": 0.0,
             "precision": 0.0,
             "recall": 0.0,
             "f-measure": 0.0
@@ -69,6 +70,8 @@ if __name__ == "__main__":
         results["true-ham"] = true_ham
         results["false-ham"] = false_ham
 
+        accuracy = (true_spam + true_ham) / (true_spam + false_spam + true_ham + false_ham)
+        results["accuracy"] = accuracy
         precision = true_spam / (true_spam + false_spam)
         results["precision"] = precision
         recall = true_spam / (true_spam + false_ham)
