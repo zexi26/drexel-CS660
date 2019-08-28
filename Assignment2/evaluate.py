@@ -27,6 +27,10 @@ if __name__ == "__main__":
         results = {
             1: [0, 0],
             0: [0, 0],
+            "true-spam": 0,
+            "false-spam": 0,
+            "true-ham": 0,
+            "false-ham": 0,
             "precision": 0.0,
             "recall": 0.0,
             "f-measure": 0.0
@@ -43,9 +47,6 @@ if __name__ == "__main__":
             if r_cat == -1:
                 continue
 
-
-            print(results[a_cat][0])
-            print(results[r_cat][1])
             results[a_cat][0] += 1
             results[r_cat][1] += 1
 
@@ -62,6 +63,11 @@ if __name__ == "__main__":
                 else:
                     false_spam += 1
 
+
+        results["true-spam"] = true_spam
+        results["false-spam"] = false_spam
+        results["true-ham"] = true_ham
+        results["false-ham"] = false_ham
 
         precision = true_spam / (true_spam + false_spam)
         results["precision"] = precision
