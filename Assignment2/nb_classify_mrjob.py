@@ -63,7 +63,7 @@ class NaiveBayesClassifier(MRJob):
 
         tokens = list(values)
         p_spam = np.prod([self.spam_dict.get(token, (1, 1 / self.spam_t_count))[1] ** freq for token, freq in tokens])
-        p_ham = np.prod([self.ham_dict.get(token, (1, 1 / self.spam_t_count))[1] ** freq for token, freq in tokens])
+        p_ham = np.prod([self.ham_dict.get(token, (1, 1 / self.ham_t_count))[1] ** freq for token, freq in tokens])
 
         yield str(key), (1 if (self.spam_prior * p_spam) > (self.ham_prior * p_ham) else 0)
 
