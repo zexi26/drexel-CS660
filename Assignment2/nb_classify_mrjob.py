@@ -5,17 +5,21 @@ from collections import defaultdict
 
 import numpy as np
 from mrjob.job import MRJob
+from mrjob.protocol import JSONProtocol
 
 WORD_RE = re.compile(r'\w+')
 
 
 class NaiveBayesClassifier(MRJob):
 
+    INPUT_PROTOCOL = JSONProtocol
+    OUTPUT_PROTOCOL = JSONProtocol
+
     def configure_args(self):
         super(NaiveBayesClassifier, self).configure_args()
         self.add_file_arg("--training_data")
 
-    def mapper(self, _, email):
+    def mapper(self, key, email):
         self.increment_counter("calls", "mapper", 1)
 
         freqs = defaultdict(int)
@@ -23,7 +27,7 @@ class NaiveBayesClassifier(MRJob):
         for token in WORD_RE.findall(email):
             freqs[token] += 1
 
-        key = hashlib.sha224(email.encode("utf-8")).hexdigest()
+        key = int(key.split(",")[1])
         for token, freq in freqs.items():
             yield key, (token, freq)
 
@@ -38,17 +42,17 @@ class NaiveBayesClassifier(MRJob):
             training_data[json.loads(k_str)] = json.loads(v_str)
 
         # word frequency dicts
-        self.spam_dict = training_data["1"]
-        self.ham_dict = training_data["0"]
+        self.spam_dict = training_data["1_training_data"]
+        self.ham_dict = training_data["0_training_data"]
 
         # document counts
-        spam_d_count = training_data["1_count"]
-        ham_d_count = training_data["0_count"]
+        spam_d_count = training_data["1_document_count"]
+        ham_d_count = training_data["0_document_count"]
         total_d_count = spam_d_count + ham_d_count
 
         # token counts
-        self.spam_t_count = sum(self.spam_dict.values())
-        self.ham_t_count = sum(self.ham_dict.values())
+        self.spam_t_count = training_data["1_token_count"]
+        self.ham_t_count = training_data["0_token_count"]
 
         # prior probabilities
         self.spam_prior = spam_d_count / total_d_count
@@ -58,10 +62,10 @@ class NaiveBayesClassifier(MRJob):
         self.increment_counter("calls", "reducer", 1)
 
         tokens = list(values)
-        p_spam = np.prod([((self.spam_dict.get(token, 0) + 1) / self.spam_t_count) ** freq for token, freq in tokens])
-        p_ham = np.prod([((self.ham_dict.get(token, 0) + 1) / self.ham_t_count) ** freq for token, freq in tokens])
+        p_spam = np.prod([self.spam_dict.get(token, (1, 1 / self.spam_t_count))[1] ** freq for token, freq in tokens])
+        p_ham = np.prod([self.ham_dict.get(token, (1, 1 / self.spam_t_count))[1] ** freq for token, freq in tokens])
 
-        yield key, (1 if (self.spam_prior * p_spam) > (self.ham_prior * p_ham) else 0)
+        yield str(key), (1 if (self.spam_prior * p_spam) > (self.ham_prior * p_ham) else 0)
 
 
 if __name__ == "__main__":

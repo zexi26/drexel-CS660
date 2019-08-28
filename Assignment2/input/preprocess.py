@@ -1,4 +1,5 @@
 import csv
+import hashlib
 import re
 import sys
 
@@ -20,6 +21,8 @@ if __name__ == "__main__":
             if count == 1:
                 continue
 
-            line = '%i\t"%s"\n' % (0 if row[0] == "ham" else 1, " ".join(WORD_RE.findall(row[1])))
-            print(line)
+            email = " ".join(WORD_RE.findall(row[1]))
+
+            line = '"%i,%i"\t"%s"\n' % (0 if row[0] == "ham" else 1, count - 1, email)
+
             output_file.write(line)
