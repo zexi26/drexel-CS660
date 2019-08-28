@@ -43,6 +43,7 @@ true-spam: 729
 false-spam: 175
 true-ham: 4648
 false-ham: 18
+accuracy: 0.9653500897666069
 precision: 0.8064159292035398
 recall: 0.9759036144578314
 f-measure: 0.8831011508176863
