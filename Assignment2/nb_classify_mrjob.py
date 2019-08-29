@@ -11,7 +11,6 @@ WORD_RE = re.compile(r'\w+')
 
 
 class NaiveBayesClassifier(MRJob):
-
     INPUT_PROTOCOL = JSONProtocol
     OUTPUT_PROTOCOL = JSONProtocol
 
@@ -45,6 +44,11 @@ class NaiveBayesClassifier(MRJob):
         self.spam_dict = training_data["1_training_data"]
         self.ham_dict = training_data["0_training_data"]
 
+        spam_vocab = list(self.spam_dict.keys())
+        ham_vocab = list(self.ham_dict.keys())
+        vocab = set().union(*[spam_vocab, ham_vocab])
+        self.vocab_size = len(vocab)
+
         # document counts
         spam_d_count = training_data["1_document_count"]
         ham_d_count = training_data["0_document_count"]
@@ -62,10 +66,20 @@ class NaiveBayesClassifier(MRJob):
         self.increment_counter("calls", "reducer", 1)
 
         tokens = list(values)
-        p_spam = np.prod([self.spam_dict.get(token, (1, 1 / self.spam_t_count))[1] ** freq for token, freq in tokens])
-        p_ham = np.prod([self.ham_dict.get(token, (1, 1 / self.ham_t_count))[1] ** freq for token, freq in tokens])
+        p_spam = []
+        p_ham = []
 
-        yield str(key), (1 if (self.spam_prior * p_spam) > (self.ham_prior * p_ham) else 0)
+        for token, freq in tokens:
+            ps_denom = self.spam_t_count + self.vocab_size + 1
+            ph_denom = self.ham_t_count + self.vocab_size + 1
+
+            ps = (self.spam_dict.get(token, (1, 1 / ps_denom))[0] + 1) / ps_denom
+            ph = (self.ham_dict.get(token, (1, 1 / ph_denom))[0] + 1) / ph_denom
+
+            p_spam.append(ps)
+            p_ham.append(ph)
+
+        yield str(key), (1 if (self.spam_prior * np.prod(p_spam)) > (self.ham_prior * np.prod(p_ham)) else 0)
 
 
 if __name__ == "__main__":
