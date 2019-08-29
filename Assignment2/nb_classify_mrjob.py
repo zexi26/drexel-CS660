@@ -1,4 +1,3 @@
-import hashlib
 import json
 import re
 from collections import defaultdict
@@ -66,8 +65,8 @@ class NaiveBayesClassifier(MRJob):
         self.increment_counter("calls", "reducer", 1)
 
         tokens = list(values)
-        p_spam = []
-        p_ham = []
+        p_spam = 0
+        p_ham = 0
 
         for token, freq in tokens:
             ps_denom = self.spam_t_count + self.vocab_size + 1
@@ -76,10 +75,13 @@ class NaiveBayesClassifier(MRJob):
             ps = (self.spam_dict.get(token, (1, 1 / ps_denom))[0] + 1) / ps_denom
             ph = (self.ham_dict.get(token, (1, 1 / ph_denom))[0] + 1) / ph_denom
 
-            p_spam.append(ps ** freq)
-            p_ham.append(ph ** freq)
+            p_spam += (-np.log10(ps) * freq)
+            p_ham += (-np.log10(ph) * freq)
 
-        yield str(key), (1 if (self.spam_prior * np.prod(p_spam)) > (self.ham_prior * np.prod(p_ham)) else 0)
+        spam_prior = -np.log10(self.spam_prior)
+        ham_prior = -np.log10(self.ham_prior)
+
+        yield (str(key)), (1 if (spam_prior + p_spam) < (ham_prior + p_ham) else 0)
 
 
 if __name__ == "__main__":

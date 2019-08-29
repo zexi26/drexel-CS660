@@ -2,7 +2,7 @@ import re
 from collections import defaultdict
 
 from mrjob.job import MRJob
-from mrjob.protocol import JSONProtocol, PickleProtocol
+from mrjob.protocol import JSONProtocol
 
 WORD_RE = re.compile(r'\w+')
 
