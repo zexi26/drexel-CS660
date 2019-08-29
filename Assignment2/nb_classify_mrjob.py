@@ -76,8 +76,8 @@ class NaiveBayesClassifier(MRJob):
             ps = (self.spam_dict.get(token, (1, 1 / ps_denom))[0] + 1) / ps_denom
             ph = (self.ham_dict.get(token, (1, 1 / ph_denom))[0] + 1) / ph_denom
 
-            p_spam.append(ps)
-            p_ham.append(ph)
+            p_spam.append(ps ** freq)
+            p_ham.append(ph ** freq)
 
         yield str(key), (1 if (self.spam_prior * np.prod(p_spam)) > (self.ham_prior * np.prod(p_ham)) else 0)
 
