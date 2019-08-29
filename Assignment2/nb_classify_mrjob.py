@@ -68,10 +68,10 @@ class NaiveBayesClassifier(MRJob):
         p_spam = 0
         p_ham = 0
 
-        for token, freq in tokens:
-            ps_denom = self.spam_t_count + self.vocab_size + 1
-            ph_denom = self.ham_t_count + self.vocab_size + 1
+        ps_denom = self.spam_t_count + self.vocab_size + 1
+        ph_denom = self.ham_t_count + self.vocab_size + 1
 
+        for token, freq in tokens:
             ps = (self.spam_dict.get(token, (1, 1 / ps_denom))[0] + 1) / ps_denom
             ph = (self.ham_dict.get(token, (1, 1 / ph_denom))[0] + 1) / ph_denom
 
