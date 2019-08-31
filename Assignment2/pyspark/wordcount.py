@@ -10,11 +10,11 @@ inputUri=sys.argv[1]
 outputUri=sys.argv[2]
 
 sc = pyspark.SparkContext()
-spamInput = inputUri + "/spam"
-hamInput = inputUri + "/ham"
+spamInputFolder = inputUri + "/spam"
+hamInputFolder = inputUri + "/ham"
 
-spam = sc.textFile(spamInput)
-ham = sc.textFile(hamInput)
+spam = sc.textFile(spamInputFolder)
+ham = sc.textFile(hamInputFolder)
 
 spamWords = spam.map(lambda email: email.split())
 hamWords = ham.map(lambda email: email.split())
