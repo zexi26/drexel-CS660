@@ -10,7 +10,14 @@ inputUri=sys.argv[1]
 outputUri=sys.argv[2]
 
 sc = pyspark.SparkContext()
-lines = sc.textFile(sys.argv[1])
-words = lines.flatMap(lambda line: line.split())
-wordCounts = words.map(lambda word: (word, 1)).reduceByKey(lambda count1, count2: count1 + count2)
-wordCounts.saveAsTextFile(sys.argv[2])
+spamInput = inputUri + "/spam"
+hamInput = inputUri + "/ham"
+
+spam = sc.textFile(spamInput)
+ham = sc.textFile(hamInput)
+
+spamWords = spam.map(lambda email: email.split())
+hamWords = ham.map(lambda email: email.split())
+
+spamWords.saveAsTextFile(sys.argv[2] + "/spam_output")
+hamWords.saveAsTextFile(sys.argv[2] + "/ham_output")
