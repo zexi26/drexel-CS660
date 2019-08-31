@@ -13,6 +13,10 @@ run:
 		--cluster=${CLUSTER} \
 		-- gs://${BUCKET_NAME}/input/ gs://${BUCKET_NAME}/output
 
+view:
+	@echo Signficant output can be seen at:
+	@gsutil ls gs://${BUCKET_NAME}/output/**/part*
+
 setup:
 	@echo Copying over spam/ and ham/ folders
 	gsutil cp ham/*  gs://${BUCKET_NAME}/input/
