@@ -2,28 +2,34 @@ PROGRAM_NAME=wordcount.py
 CLUSTER=cluster-5455
 BUCKET_NAME=cs660-saffat
 
+INPUT_FOLDER=gs://${BUCKET_NAME}/input
+OUTPUT_FOLDER=gs://${BUCKET_NAME}/output
+
+# HOW TO MAKE A BUCKET:		https://cloud.google.com/storage/docs/creating-buckets
+# HOW TO MAKE A CLUSTER:	https://cloud.google.com/dataproc/docs/tutorials/jupyter-notebook
+#
 # USAGE:
 # make run CLUSTER=cluster-5455 \
 	# BUCKET_NAME=cs660-saffat \
 	# PROGRAM_NAME=wordcount.py
-#
 
 run:
 	gcloud dataproc jobs submit pyspark ${PROGRAM_NAME} \
 		--cluster=${CLUSTER} \
-		-- gs://${BUCKET_NAME}/input/ gs://${BUCKET_NAME}/output
+		-- ${INPUT_FOLDER} ${OUTPUT_FOLDER}
 
 view:
 	@echo Signficant output can be seen at:
-	@gsutil ls gs://${BUCKET_NAME}/output/**/part*
+	@gsutil ls ${OUTPUT_FOLDER}/**/part*
 
 setup:
 	@echo Copying over spam/ and ham/ folders
-	gsutil cp ham/*  gs://${BUCKET_NAME}/input/
-	@echo Copied all contents of ${PWD}/ham  to gs://${BUCKET_NAME}/input/ham
-	gsutil cp spam/* gs://${BUCKET_NAME}/input/
-	@echo Copied all contents of ${PWD}/spam to gs://${BUCKET_NAME}/input/spam
+	gsutil cp ham/* ${INPUT_FOLDER}/
+	@echo Copied all contents of ${PWD}/ham  to ${INPUT_FOLDER}/ham
+	gsutil cp spam/* ${INPUT_FOLDER}/
+	@echo Copied all contents of ${PWD}/spam to ${INPUT_FOLDER}/spam
 
 clean:
-	@echo Deleting all contents in ${BUCKET_NAME}...
-	-gsutil rm gs://${BUCKET_NAME}/**
+	@echo Deleting all input/output contents in ${BUCKET_NAME}
+	-gsutil rm ${INPUT_FOLDER}/**
+	-gsutil rm ${OUTPUT_FOLDER}/**
