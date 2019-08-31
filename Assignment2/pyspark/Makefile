@@ -13,6 +13,8 @@ OUTPUT_FOLDER=gs://${BUCKET_NAME}/output
 	# BUCKET_NAME=cs660-saffat \
 	# PROGRAM_NAME=wordcount.py
 
+.PHONY=run view setup clean
+
 run:
 	gcloud dataproc jobs submit pyspark ${PROGRAM_NAME} \
 		--cluster=${CLUSTER} \
