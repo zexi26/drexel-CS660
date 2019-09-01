@@ -9,6 +9,10 @@ OUTPUT_FOLDER=gs://${BUCKET_NAME}/output
 # HOW TO MAKE A BUCKET:		https://cloud.google.com/storage/docs/creating-buckets
 # HOW TO MAKE A CLUSTER:	https://cloud.google.com/dataproc/docs/tutorials/jupyter-notebook
 #
+# Common Errors:
+# 	"Failed to import PySpark" -> pip3 install pyspark
+# 	"JAVA_HOME is not set" -> sudo apt-get install default-jre
+#
 # USAGE:
 # make run CLUSTER=cluster-5455 \
 	# BUCKET_NAME=cs660-saffat \
