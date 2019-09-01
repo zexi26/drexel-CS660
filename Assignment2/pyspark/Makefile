@@ -52,7 +52,7 @@ local-setup:
 	rm -rf ${DATA_SET} ${DATA_FILE}
 
 local-clean:
-	rm -rf ${LOCAL_HAM_FOLDER} ${LOCAL_SPAM_FOLDER} ${LOCAL_OUTPUT_FOLDER}
+	rm -rf ${LOCAL_HAM_FOLDER} ${LOCAL_SPAM_FOLDER} ${LOCAL_OUTPUT_FOLDER} ${DATA_FILE}*
 
 all: clean setup run
 
@@ -67,12 +67,12 @@ view:
 
 setup: local-setup
 	@echo Copying over spam/ and ham/ folders
-	gsutil cp input/ham/* ${GS_INPUT_FOLDER}/
+	gsutil -m cp input/ham/* ${GS_INPUT_FOLDER}/
 	@echo Copied all contents of ${PWD}/ham  to ${GS_INPUT_FOLDER}/ham
-	gsutil cp input/spam/* ${GS_INPUT_FOLDER}/
+	gsutil -m cp input/spam/* ${GS_INPUT_FOLDER}/
 	@echo Copied all contents of ${PWD}/spam to ${GS_INPUT_FOLDER}/spam
 
 clean:
 	@echo Deleting all input/output contents in ${BUCKET_NAME}
-	-gsutil rm ${GS_INPUT_FOLDER}/**
-	-gsutil rm ${GS_OUTPUT_FOLDER}/**
+	-gsutil -m rm ${GS_INPUT_FOLDER}/**
+	-gsutil -m rm ${GS_OUTPUT_FOLDER}/**
