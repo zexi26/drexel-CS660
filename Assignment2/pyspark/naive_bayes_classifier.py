@@ -10,6 +10,11 @@ inputUri=sys.argv[1]
 outputUri=sys.argv[2]
 
 sc = pyspark.SparkContext()
+
+log4jLogger = sc._jvm.org.apache.log4j
+log = log4jLogger.LogManager.getLogger(__name__)
+log.warn("Hello World!")
+
 spamInputFolder = inputUri + "/spam"
 hamInputFolder = inputUri + "/ham"
 
