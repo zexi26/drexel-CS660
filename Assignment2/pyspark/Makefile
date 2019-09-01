@@ -26,9 +26,9 @@ view:
 
 setup:
 	@echo Copying over spam/ and ham/ folders
-	gsutil cp ham/* ${INPUT_FOLDER}/
+	gsutil cp input/ham/* ${INPUT_FOLDER}/
 	@echo Copied all contents of ${PWD}/ham  to ${INPUT_FOLDER}/ham
-	gsutil cp spam/* ${INPUT_FOLDER}/
+	gsutil cp input/spam/* ${INPUT_FOLDER}/
 	@echo Copied all contents of ${PWD}/spam to ${INPUT_FOLDER}/spam
 
 clean:
