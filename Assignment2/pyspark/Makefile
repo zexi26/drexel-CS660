@@ -3,8 +3,22 @@ CLUSTER=cluster-5455
 BUCKET_NAME=cs660-saffat
 PYTHON=/usr/bin/python3
 
-INPUT_FOLDER=gs://${BUCKET_NAME}/input
-OUTPUT_FOLDER=gs://${BUCKET_NAME}/output
+# File name from data set
+DATA_SET=enron1
+DATA_FILE=${DATA_SET}.tar.gz
+DATA_URL=http://www.aueb.gr/users/ion/data/enron-spam/preprocessed/${DATA_FILE}
+
+# Local Variables
+LOCAL_INPUT_FOLDER=${PWD}/input
+LOCAL_SPAM_FOLDER=${LOCAL_INPUT_FOLDER}/spam
+LOCAL_HAM_FOLDER=${LOCAL_INPUT_FOLDER}/ham
+LOCAL_OUTPUT_FOLDER=${PWD}/output
+
+# Google Storage Variables
+GS_INPUT_FOLDER=gs://${BUCKET_NAME}/input
+GS_SPAM_FOLDER=${GS_INPUT_FOLDER}/spam
+GS_HAM_FOLDER=${GS_INPUT_FOLDER}/ham
+GS_OUTPUT_FOLDER=gs://${BUCKET_NAME}/output
 
 # HOW TO MAKE A BUCKET:		https://cloud.google.com/storage/docs/creating-buckets
 # HOW TO MAKE A CLUSTER:	https://cloud.google.com/dataproc/docs/tutorials/jupyter-notebook
@@ -23,40 +37,42 @@ OUTPUT_FOLDER=gs://${BUCKET_NAME}/output
 local-all: local-clean local-setup local-run
 
 local-run: local-clean
-	PYSPARK_DRIVER_PYTHON=${PYTHON} PYSPARK_PYTHON=${PYTHON} ${PYTHON} ${PROGRAM_NAME} input/ output/
+	PYSPARK_DRIVER_PYTHON=${PYTHON} PYSPARK_PYTHON=${PYTHON} ${PYTHON} ${PROGRAM_NAME} ${LOCAL_INPUT_FOLDER} ${LOCAL_OUTPUT_FOLDER}
 
 local-setup:
-	wget http://www.aueb.gr/users/ion/data/enron-spam/preprocessed/enron1.tar.gz
-	tar -xf enron1.tar.gz
-	mv enron1/ham/* input/ham/
-	mv enron1/spam/* input/spam/
-	rm -rf enron1
-	rm -rf enron1.tar.gz
+	# Get the data tar.gz
+	wget ${DATA_URL}
+	# Untar it to enron1/ (DATA_SET)
+	tar -xf ${DATA_FILE}
+	# Create folders we will copy to
+	mkdir -p ${LOCAL_SPAM_FOLDER} ${LOCAL_HAM_FOLDER} ${LOCAL_OUTPUT_FOLDER}
+	# Move files from enron1/[sp|h]am to input/[sp|h]am
+	mv ${DATA_SET}/ham/* ${LOCAL_HAM_FOLDER}
+	mv ${DATA_SET}/spam/* ${LOCAL_SPAM_FOLDER}
+	rm -rf ${DATA_SET} ${DATA_FILE}
 
 local-clean:
-	rm -rf input/ham/*
-	rm -rf input/spam/*
-	rm -rf output
+	rm -rf ${LOCAL_HAM_FOLDER} ${LOCAL_SPAM_FOLDER} ${LOCAL_OUTPUT_FOLDER}
 
 all: clean setup run
 
 run:
 	gcloud dataproc jobs submit pyspark ${PROGRAM_NAME} \
 		--cluster=${CLUSTER} \
-		-- ${INPUT_FOLDER} ${OUTPUT_FOLDER}
+		-- ${GS_INPUT_FOLDER} ${GS_OUTPUT_FOLDER}
 
 view:
 	@echo Signficant output can be seen at:
-	@gsutil ls ${OUTPUT_FOLDER}/**/part*
+	@gsutil ls ${GS_OUTPUT_FOLDER}/**/part*
 
 setup:
 	@echo Copying over spam/ and ham/ folders
-	gsutil cp input/ham/* ${INPUT_FOLDER}/
-	@echo Copied all contents of ${PWD}/ham  to ${INPUT_FOLDER}/ham
-	gsutil cp input/spam/* ${INPUT_FOLDER}/
-	@echo Copied all contents of ${PWD}/spam to ${INPUT_FOLDER}/spam
+	gsutil cp input/ham/* ${GS_INPUT_FOLDER}/
+	@echo Copied all contents of ${PWD}/ham  to ${GS_INPUT_FOLDER}/ham
+	gsutil cp input/spam/* ${GS_INPUT_FOLDER}/
+	@echo Copied all contents of ${PWD}/spam to ${GS_INPUT_FOLDER}/spam
 
 clean:
 	@echo Deleting all input/output contents in ${BUCKET_NAME}
-	-gsutil rm ${INPUT_FOLDER}/**
-	-gsutil rm ${OUTPUT_FOLDER}/**
+	-gsutil rm ${GS_INPUT_FOLDER}/**
+	-gsutil rm ${GS_OUTPUT_FOLDER}/**
