@@ -2,6 +2,9 @@
 
 # Currently based off https://github.com/juliensimon/dlnotebooks/blob/master/spark/spam-classifier/01%20-%20Spam%20classifier.ipynb
 # Will need to be adapted to fit the dataproc framework
+# Usage:
+#   python3 naive_bayes_classifier.py input/ output/
+#       Expecting a ham/ and spam/ folder under input
 
 import pyspark
 import sys
