@@ -1,4 +1,4 @@
-PROGRAM_NAME=wordcount.py
+PROGRAM_NAME=naive_bayes_classifier.py
 CLUSTER=cluster-5455
 BUCKET_NAME=cs660-saffat
 
