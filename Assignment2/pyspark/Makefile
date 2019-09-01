@@ -20,10 +20,22 @@ OUTPUT_FOLDER=gs://${BUCKET_NAME}/output
 
 .PHONY=all local-run local-clean run view setup clean
 
+local-all: local-clean local-setup local-run
+
 local-run: local-clean
 	PYSPARK_DRIVER_PYTHON=${PYTHON} PYSPARK_PYTHON=${PYTHON} ${PYTHON} ${PROGRAM_NAME} input/ output/
 
+local-setup:
+	wget http://www.aueb.gr/users/ion/data/enron-spam/preprocessed/enron1.tar.gz
+	tar -xf enron1.tar.gz
+	mv enron1/ham/* input/ham/
+	mv enron1/spam/* input/spam/
+	rm -rf enron1
+	rm -rf enron1.tar.gz
+
 local-clean:
+	rm -rf input/ham/*
+	rm -rf input/spam/*
 	rm -rf output
 
 all: clean setup run
