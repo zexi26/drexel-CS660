@@ -1,6 +1,7 @@
 PROGRAM_NAME=naive_bayes_classifier.py
 CLUSTER=cluster-5455
 BUCKET_NAME=cs660-saffat
+PYTHON=/usr/bin/python3
 
 INPUT_FOLDER=gs://${BUCKET_NAME}/input
 OUTPUT_FOLDER=gs://${BUCKET_NAME}/output
@@ -14,6 +15,12 @@ OUTPUT_FOLDER=gs://${BUCKET_NAME}/output
 	# PROGRAM_NAME=wordcount.py
 
 .PHONY=run view setup clean
+
+local-run: local-clean
+	PYSPARK_DRIVER_PYTHON=${PYTHON} PYSPARK_PYTHON=${PYTHON} ${PYTHON} ${PROGRAM_NAME} input/ output/
+
+local-clean:
+	rm -rf output
 
 run:
 	gcloud dataproc jobs submit pyspark ${PROGRAM_NAME} \
