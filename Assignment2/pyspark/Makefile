@@ -14,13 +14,15 @@ OUTPUT_FOLDER=gs://${BUCKET_NAME}/output
 	# BUCKET_NAME=cs660-saffat \
 	# PROGRAM_NAME=wordcount.py
 
-.PHONY=run view setup clean
+.PHONY=all local-run local-clean run view setup clean
 
 local-run: local-clean
 	PYSPARK_DRIVER_PYTHON=${PYTHON} PYSPARK_PYTHON=${PYTHON} ${PYTHON} ${PROGRAM_NAME} input/ output/
 
 local-clean:
 	rm -rf output
+
+all: clean setup run
 
 run:
 	gcloud dataproc jobs submit pyspark ${PROGRAM_NAME} \
