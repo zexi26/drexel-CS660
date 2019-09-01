@@ -36,7 +36,7 @@ GS_OUTPUT_FOLDER=gs://${BUCKET_NAME}/output
 
 local-all: local-clean local-setup local-run
 
-local-run: local-clean
+local-run:
 	PYSPARK_DRIVER_PYTHON=${PYTHON} PYSPARK_PYTHON=${PYTHON} ${PYTHON} ${PROGRAM_NAME} ${LOCAL_INPUT_FOLDER} ${LOCAL_OUTPUT_FOLDER}
 
 local-setup:
@@ -65,7 +65,7 @@ view:
 	@echo Signficant output can be seen at:
 	@gsutil ls ${GS_OUTPUT_FOLDER}/**/part*
 
-setup:
+setup: local-setup
 	@echo Copying over spam/ and ham/ folders
 	gsutil cp input/ham/* ${GS_INPUT_FOLDER}/
 	@echo Copied all contents of ${PWD}/ham  to ${GS_INPUT_FOLDER}/ham
