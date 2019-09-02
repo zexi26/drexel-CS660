@@ -1,5 +1,7 @@
+import sys
+
 if __name__ == "__main__":
-    input_file = "./input/input.txt"
+    input_file = sys.argv[1]
     result_file = "./results.json"
 
     input_dict = {}

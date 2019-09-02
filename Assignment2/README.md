@@ -3,41 +3,50 @@
 #### ????????????????
 ### MRJob
 #### Preprocessing
-This will process the spam.csv into a format appropriate for mrjob. The resulting 
-file will be named **input.txt**.
+This will process the enron1 dataset into a simpler format for MRJob. Two files
+will be created: **enron_mrjob_training.txt** and **enron_mrjob_test.txt**. The 
+(training / test) split is **(80 / 20)**.
 
 ```bash
-python preprocess_mrjob.py spam.csv
+python preprocess_enron.py
 ```
 
 #### Training
 This will create the training data to be used in the classifier job.
 
 ```bash
-python nb_train_mrjob.py input/input.txt > training.json
+python nb_train_mrjob.py input/enron_mrjob_train.txt > training.json
 ```
 
 #### Classifying
 This will classify the given input text based on the training data.
 
 ```bash
-python nb_classify_mrjob.py input/input.txt --training_data=training.json > results.json
+python nb_classify_mrjob.py input/enron_mrjob_test.txt --training_data=training.json > results.json
 ```
 
 #### Evaluating
 This will compute statistics for the results, comparing against the input.
 
-**Note**: Training data *should* be split into (training, test); for this demonstration 
-it has not been split.
-
-**Note**: This assumes the input is named **input/input.txt** and the output is named 
-**results.json** (for now).
+**Note**: This assumes the output is named **results.json** (for now).
 
 ```bash
-python evaluate.py
+python evaluate.py input/enron_mrjob_test.txt
 ```
-
-##### First Implementation
+##### Enron1 Dataset Local
+```bash
+1: [300, 301]
+0: [735, 734]
+true-spam: 287
+false-spam: 14
+true-ham: 721
+false-ham: 13
+accuracy: 0.9739130434782609
+precision: 0.9534883720930233
+recall: 0.9566666666666667
+f-measure: 0.9550748752079866
+```
+##### First Implementation (Kaggle Dataset)
 ```bash
 Results Summary:
 1: [747, 904]
