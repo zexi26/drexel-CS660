@@ -155,11 +155,23 @@ This will create the training data to be used in the classifier job.
 python nb_train_mrjob.py input/enron_mrjob_train.txt > training.json
 ```
 
+```bash
+real    0m5.678s
+user    0m5.912s
+sys     0m0.752s
+```
+
 #### Classifying
 This will classify the given input text based on the training data.
 
 ```bash
 python nb_classify_mrjob.py input/enron_mrjob_test.txt --training_data=training.json > results.json
+```
+
+```bash
+real    0m3.076s
+user    0m3.303s
+sys     0m0.795s
 ```
 
 #### Evaluating
@@ -169,6 +181,24 @@ This will compute statistics for the results, comparing against the input.
 
 ```bash
 python evaluate.py input/enron_mrjob_test.txt
+```
+
+```bash
+Results Summary:
+1: [300, 301]
+0: [735, 734]
+true-spam: 287
+false-spam: 14
+true-ham: 721
+false-ham: 13
+accuracy: 0.9739130434782609
+precision: 0.9534883720930233
+recall: 0.9566666666666667
+f-measure: 0.9550748752079866
+
+real    0m0.050s
+user    0m0.048s
+sys     0m0.000s
 ```
 ##### Enron1 Dataset Local
 ```bash
