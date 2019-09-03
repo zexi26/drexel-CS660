@@ -1,6 +1,143 @@
 # Usage
 ### Spark
-#### ????????????????
+#### Preprocessing
+This will process the enron1 dataset into a simpler format for Spark. The output 
+file created will be **enron_spark_input.txt**.
+```bash
+python preprocess_spark.py
+```
+
+#### Training & Evaluating
+##### 100 Features
+```bash
+python nb_spark.py input/enron_spark_input.txt 100
+```
+
+```bash
+Loading input file input/enron_spark_input.txt ...
+        Total number of emails: 5172                                            
+        Total number of spam emails: 1500
+        Total number of ham emails: 3672
+Hashing words into features ...
+Labeling features ...
+Splitting data into training and testing sets ...
+Training the model ...
+Evaluating the model ...                                                        
+model accuracy: 0.8353293413173652                                              
+
+real    0m12.151s
+user    0m0.784s
+sys     0m0.536s
+```
+##### 1000 Features
+```bash
+python nb_spark.py input/enron_spark_input.txt 1000
+```
+
+```bash
+Loading input file input/enron_spark_input.txt ...
+        Total number of emails: 5172                                            
+        Total number of spam emails: 1500
+        Total number of ham emails: 3672
+Hashing words into features ...
+Labeling features ...
+Splitting data into training and testing sets ...
+Training the model ...
+Evaluating the model ...                                                        
+model accuracy: 0.8942486085343229                                              
+
+real    0m12.859s
+user    0m0.782s
+sys     0m0.583s
+```
+
+##### 5000 Features
+```bash
+python nb_spark.py input/enron_spark_input.txt 5000
+```
+
+```bash
+Loading input file input/enron_spark_input.txt ...
+        Total number of emails: 5172                                            
+        Total number of spam emails: 1500
+        Total number of ham emails: 3672
+Hashing words into features ...
+Labeling features ...
+Splitting data into training and testing sets ...
+Training the model ...
+Evaluating the model ...                                                        
+model accuracy: 0.9520153550863724                                              
+
+real    0m11.605s
+user    0m0.888s
+sys     0m0.548s
+```
+
+##### 10000 Features
+```bash
+python nb_spark.py input/enron_spark_input.txt 10000
+```
+
+```bash
+Loading input file input/enron_spark_input.txt ...
+        Total number of emails: 5172                                            
+        Total number of spam emails: 1500
+        Total number of ham emails: 3672
+Hashing words into features ...
+Labeling features ...
+Splitting data into training and testing sets ...
+Training the model ...
+Evaluating the model ...                                                        
+model accuracy: 0.9601634320735445                                              
+
+real    0m11.827s
+user    0m0.839s
+sys     0m0.554s
+```
+
+##### 25000 Features
+```bash
+python nb_spark.py input/enron_spark_input.txt 25000
+```
+
+```bash
+Loading input file input/enron_spark_input.txt ...
+        Total number of emails: 5172                                            
+        Total number of spam emails: 1500
+        Total number of ham emails: 3672
+Hashing words into features ...
+Labeling features ...
+Splitting data into training and testing sets ...
+Training the model ...
+Evaluating the model ...  
+model accuracy: 0.9797979797979798                                              
+
+real    0m11.700s
+user    0m0.845s
+sys     0m0.536s
+```
+
+##### 50000 Features
+```bash
+python nb_spark.py input/enron_spark_input.txt 50000
+```
+
+```bash
+Loading input file input/enron_spark_input.txt ...
+        Total number of emails: 5172                                            
+        Total number of spam emails: 1500
+        Total number of ham emails: 3672
+Hashing words into features ...
+Labeling features ...
+Splitting data into training and testing sets ...
+Training the model ...
+Evaluating the model ... 
+model accuracy: 0.9809428284854563                                              
+
+real    0m12.413s
+user    0m0.988s
+sys     0m0.516s
+```
 ### MRJob
 #### Preprocessing
 This will process the enron1 dataset into a simpler format for MRJob. Two files

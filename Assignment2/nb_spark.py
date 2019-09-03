@@ -1,12 +1,16 @@
+import sys
+
 from pyspark.mllib.classification import NaiveBayes
 from pyspark.mllib.feature import HashingTF
 from pyspark.mllib.regression import LabeledPoint
 from pyspark.shell import sc
 
 if __name__ == "__main__":
+    input_file = sys.argv[1]
+    num_features = int(sys.argv[2])
     # load input files
-    print("Loading input file ...")
-    emails = sc.textFile("./input/enron_spark_input.txt")
+    print("Loading input file %s ..." % input_file)
+    emails = sc.textFile(input_file)
 
     print("\tTotal number of emails: %i" % emails.count())
 
@@ -20,7 +24,7 @@ if __name__ == "__main__":
 
     # hash words
     print("Hashing words into features ...")
-    tf = HashingTF(numFeatures=5000)
+    tf = HashingTF(numFeatures=num_features)
     spam_features = spam.map(lambda email: tf.transform(email.split(" ")))
     ham_features = ham.map(lambda email: tf.transform(email.split(" ")))
 
