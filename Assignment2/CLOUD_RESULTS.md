@@ -1,11 +1,4 @@
 # Spark
-
-## Locally
-time| accuracy
-----| --------
-27.085 sec | 93.72%
-
-## Cloud
 instance-type | num-core-instances | time| accuracy
 ------------- | ------------------ | ----| --------
 default       | default  | 46.230 sec   | 92.77%
