@@ -5,6 +5,8 @@
 - Saffat Hasan
 - Zexi Yu
 
+## Dataset
+http://nlp.cs.aueb.gr/software_and_datasets/Enron-Spam/index.html
 ## Usage
 ### Spark
 #### Preprocessing
