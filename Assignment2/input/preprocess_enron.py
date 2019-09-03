@@ -7,8 +7,8 @@ WORD_RE = re.compile(r'\w+')
 if __name__ == "__main__":
     with open("./enron_mrjob_train.txt", "w") as training_file, open(
             "./enron_mrjob_test.txt", "w") as test_file:
-        spam_dir = "./enron1/spam/"
-        ham_dir = "./enron1/ham/"
+        spam_dir = "./enron_full/spam/"
+        ham_dir = "./enron_full/ham/"
 
         training_percent = 0.8
 
