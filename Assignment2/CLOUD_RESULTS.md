@@ -1,5 +1,18 @@
 # Spark
-## ???????????????
+
+## Locally
+time| accuracy
+----| --------
+27.085 sec | 93.72%
+
+## Cloud
+instance-type | num-core-instances | time| accuracy
+------------- | ------------------ | ----| --------
+default       | default  | 46.230 sec   | 92.77%
+n1-standard-2 | 7        | 46.039 sec   | 93.10%
+n1-highcpu-4  | 5        | 44.525 sec   | 93.31%
+n1-highcpu-8  | 2        | 43.680 sec   | 93.48%
+
 # MRJob
 ## Train
 instance-type | num-core-instances | time
