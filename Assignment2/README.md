@@ -17,6 +17,9 @@ python preprocess_spark.py
 ```
 
 #### Training & Evaluating
+```bash
+python nb_spark.py input/enron_spark_input.txt NUM_FEATURES
+```
 
 num_features | accuracy
 ------------ | --------
