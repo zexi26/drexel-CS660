@@ -1,8 +1,8 @@
 import json
+import math
 import re
 from collections import defaultdict
 
-import numpy as np
 from mrjob.job import MRJob
 from mrjob.protocol import JSONProtocol
 
@@ -75,11 +75,11 @@ class NaiveBayesClassifier(MRJob):
             ps = (self.spam_dict.get(token, (1, 1 / ps_denom))[0] + 1) / ps_denom
             ph = (self.ham_dict.get(token, (1, 1 / ph_denom))[0] + 1) / ph_denom
 
-            p_spam += (-np.log10(ps) * freq)
-            p_ham += (-np.log10(ph) * freq)
+            p_spam += (-math.log10(ps) * freq)
+            p_ham += (-math.log10(ph) * freq)
 
-        spam_prior = -np.log10(self.spam_prior)
-        ham_prior = -np.log10(self.ham_prior)
+        spam_prior = -math.log10(self.spam_prior)
+        ham_prior = -math.log10(self.ham_prior)
 
         yield (str(key)), (1 if (spam_prior + p_spam) < (ham_prior + p_ham) else 0)
 
