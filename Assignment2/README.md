@@ -1,4 +1,11 @@
-# Usage
+# CS660 Assignment 2
+## Collaborators
+- Evan Lavender
+- Merlin Cherian
+- Saffat Hasan
+- Zexi Yu
+
+## Usage
 ### Spark
 #### Preprocessing
 This will process the enron1 dataset into a simpler format for Spark. The output 
@@ -8,136 +15,25 @@ python preprocess_spark.py
 ```
 
 #### Training & Evaluating
-##### 100 Features
-```bash
-python nb_spark.py input/enron_spark_input.txt 100
-```
 
-```bash
-Loading input file input/enron_spark_input.txt ...
-        Total number of emails: 5172                                            
-        Total number of spam emails: 1500
-        Total number of ham emails: 3672
-Hashing words into features ...
-Labeling features ...
-Splitting data into training and testing sets ...
-Training the model ...
-Evaluating the model ...                                                        
-model accuracy: 0.8353293413173652                                              
+num_features | accuracy
+------------ | --------
+100    | 0.8353293413173652
+1000   | 0.8942486085343229
+5000   | 0.9520153550863724
+10000  | 0.9601634320735445
+25000  | 0.9797979797979798
+50000  | 0.9809428284854563
+75000  | 0.9853717388025939
+100000 | 0.9887268901247558
+125000 | 0.9859302499625805
 
-real    0m12.151s
-user    0m0.784s
-sys     0m0.536s
-```
-##### 1000 Features
-```bash
-python nb_spark.py input/enron_spark_input.txt 1000
-```
+#### Conclusion
+The Enron spam dataset was preprocessed to create a single input file. Each line consists of the classification 
+(1 for spam, 0 for ham) and the contents of the email, separated by a tab (\\t) character. Increasing the number of 
+features used in the classification seems to directly increase accuracy, but only until a certain point. Runtime was 
+fairly consistent at ~12 sec.
 
-```bash
-Loading input file input/enron_spark_input.txt ...
-        Total number of emails: 5172                                            
-        Total number of spam emails: 1500
-        Total number of ham emails: 3672
-Hashing words into features ...
-Labeling features ...
-Splitting data into training and testing sets ...
-Training the model ...
-Evaluating the model ...                                                        
-model accuracy: 0.8942486085343229                                              
-
-real    0m12.859s
-user    0m0.782s
-sys     0m0.583s
-```
-
-##### 5000 Features
-```bash
-python nb_spark.py input/enron_spark_input.txt 5000
-```
-
-```bash
-Loading input file input/enron_spark_input.txt ...
-        Total number of emails: 5172                                            
-        Total number of spam emails: 1500
-        Total number of ham emails: 3672
-Hashing words into features ...
-Labeling features ...
-Splitting data into training and testing sets ...
-Training the model ...
-Evaluating the model ...                                                        
-model accuracy: 0.9520153550863724                                              
-
-real    0m11.605s
-user    0m0.888s
-sys     0m0.548s
-```
-
-##### 10000 Features
-```bash
-python nb_spark.py input/enron_spark_input.txt 10000
-```
-
-```bash
-Loading input file input/enron_spark_input.txt ...
-        Total number of emails: 5172                                            
-        Total number of spam emails: 1500
-        Total number of ham emails: 3672
-Hashing words into features ...
-Labeling features ...
-Splitting data into training and testing sets ...
-Training the model ...
-Evaluating the model ...                                                        
-model accuracy: 0.9601634320735445                                              
-
-real    0m11.827s
-user    0m0.839s
-sys     0m0.554s
-```
-
-##### 25000 Features
-```bash
-python nb_spark.py input/enron_spark_input.txt 25000
-```
-
-```bash
-Loading input file input/enron_spark_input.txt ...
-        Total number of emails: 5172                                            
-        Total number of spam emails: 1500
-        Total number of ham emails: 3672
-Hashing words into features ...
-Labeling features ...
-Splitting data into training and testing sets ...
-Training the model ...
-Evaluating the model ...  
-model accuracy: 0.9797979797979798                                              
-
-real    0m11.700s
-user    0m0.845s
-sys     0m0.536s
-```
-
-##### 50000 Features
-```bash
-python nb_spark.py input/enron_spark_input.txt 50000
-```
-
-```bash
-Loading input file input/enron_spark_input.txt ...
-        Total number of emails: 5172                                            
-        Total number of spam emails: 1500
-        Total number of ham emails: 3672
-Hashing words into features ...
-Labeling features ...
-Splitting data into training and testing sets ...
-Training the model ...
-Evaluating the model ... 
-model accuracy: 0.9809428284854563                                              
-
-real    0m12.413s
-user    0m0.988s
-sys     0m0.516s
-```
 ### MRJob
 #### Preprocessing
 This will process the enron1 dataset into a simpler format for MRJob. Two files
@@ -257,3 +153,12 @@ precision: 0.8518957345971564
 recall: 0.9625167336010709
 f-measure: 0.9038340666247643
 ```
+
+#### Conclusion
+The Enron spam dataset was preprocessed to create a single input file. Each line consists of the classification 
+(1 for spam, 0 for ham) and the contents of the email, separated by a tab (\\t) character. Included with each category 
+is an id generated for the document. This is used for evaluation afterwards. 
+
+The training job outputs the document count, token count, and token frequency for each category. The classifying job 
+outputs a document id and the classification for the document. An evaluator script can then compare the output with the 
+input to determine accuracy. 
