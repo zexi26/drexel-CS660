@@ -1,0 +1,4 @@
+input/enron_full/
+input/enron_mrjob_test.txt
+input/enron_mrjob_train.txt
+training.json
