@@ -1,10 +1,11 @@
-# Spark
+# Spark (num_features = 1000)
 instance-type | num-core-instances | time| accuracy
 ------------- | ------------------ | ----| --------
-default       | default  | 46.230 sec   | 92.77%
-n1-standard-2 | 7        | 46.039 sec   | 93.10%
-n1-highcpu-4  | 5        | 44.525 sec   | 93.31%
-n1-highcpu-8  | 2        | 43.680 sec   | 93.48%
+default       | default  | 1 min 13 sec | 92.38%
+n1-standard-2 | 7        | 1 min 04 sec  | 92.77%
+n1-highcpu-4  | 5        | 0 min 59 sec | 93.09%
+n1-highcpu-8  | 2        | 0 min 51 sec | 93.22%
+
 
 # MRJob
 ## Train
