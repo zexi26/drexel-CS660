@@ -23,6 +23,7 @@ class NaiveBayesTrainJob(MRJob):
 
         token_count = 0
 
+        # count token frequency
         for token in WORD_RE.findall(email):
             token_count += 1
             frequencies[category][token] += 1
@@ -30,6 +31,7 @@ class NaiveBayesTrainJob(MRJob):
         # A's will arrive at the reducer first with SORTED_VALUES = True
         yield category, ("A", (1, token_count))
 
+        # yield the category along with each (token, frequency) pair
         for category, token_frequencies in frequencies.items():
             for token, frequency in token_frequencies.items():
                 yield category, ("B", (token, frequency))
@@ -41,6 +43,7 @@ class NaiveBayesTrainJob(MRJob):
         token_count = 0
         frequencies = defaultdict(int)
         for key, values in token_frequencies:
+            # total values will arrive first because of the "A" key
             if key == "A":
                 document, token = values
                 document_count += document
