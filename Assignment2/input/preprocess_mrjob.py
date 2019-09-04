@@ -23,6 +23,10 @@ if __name__ == "__main__":
 
             email = " ".join(WORD_RE.findall(row[1]))
 
+            # CSV Format:
+            # isHam: 0 for ham, 1 for spam
+            # emailID: counter for emails
+            # Actual email
             line = '"%i,%i"\t"%s"\n' % (0 if row[0] == "ham" else 1, count - 1, email)
 
             output_file.write(line)
