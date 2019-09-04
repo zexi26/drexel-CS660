@@ -21,18 +21,21 @@ python preprocess_spark.py
 ```bash
 python nb_spark.py input/enron_spark_input.txt NUM_FEATURES
 ```
+Total number of emails: 33702
+Total number of spam emails: 17157
+Total number of ham emails: 16545
 
-num_features | accuracy
------------- | --------
-100    | 0.8353293413173652
-1000   | 0.8942486085343229
-5000   | 0.9520153550863724
-10000  | 0.9601634320735445
-25000  | 0.9797979797979798
-50000  | 0.9809428284854563
-75000  | 0.9853717388025939
-100000 | 0.9887268901247558
-125000 | 0.9859302499625805
+num_features | accuracy | 
+------------ | -------- |
+100    | 0.8353293413173652 | 
+1000   | 0.8942486085343229 |
+5000   | 0.9520153550863724 |
+10000  | 0.9601634320735445 |
+25000  | 0.9797979797979798 |
+50000  | 0.9809428284854563 |
+75000  | 0.9853717388025939 |
+100000 | 0.9887268901247558 |
+125000 | 0.9859302499625805 |
 
 #### Conclusion
 The Enron spam dataset was preprocessed to create a single input file. Each line consists of the classification 
